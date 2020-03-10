@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Iteration from './Iteration'
+import Iteration from "./Iteration";
 
 export default {
   components: {
@@ -24,38 +24,29 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       listToIterate: [],
       midpoint: 0,
       isTouch: false
-    }
+    };
   },
   methods: {
-    handleTouch (bool) {
-      this.isTouch = !this.isTouch
+    handleTouch(bool) {
+      this.isTouch = !this.isTouch;
     }
   },
-  computed: {
-    parentMidPoint () {
-      if (this.$el) {
-        const rect = this.$el.getBoundingClientRect()
-        return rect.width / 2 + rect.left
-      }
-      return 0
-    }
+  mounted() {
+    const rect = this.$el.getBoundingClientRect();
+    this.midpoint = rect.width / 2 + rect.left;
   },
-  mounted () {
-    const rect = this.$el.getBoundingClientRect()
-    this.midpoint = rect.width / 2 + rect.left
-  },
-  created () {
+  created() {
     this.listToIterate = this.elements.map((row, index) => ({
       ...row,
       cMainId: index
-    }))
+    }));
   }
-}
+};
 </script>
 
 <style scoped lang="scss">

@@ -1,10 +1,14 @@
 <template>
-  <div :class="['c-main', isLeft || isRight ? 'non-active' : null]">
+  <div :class="['c-main', 'non-active']">
     <div>Moust-Left: {{ left }}</div>
     <div>Mouse-Top: {{ top }}</div>
     <div>Top: {{ offSetTop }}</div>
     <div>Left: {{ offSetLeft }}</div>
     <div>Midpoint: {{ midpoint }}</div>
+    <div>Parent Midpoint: {{ parentMidPoint }}</div>
+    <div>Parent Width: {{ parentWidth }}</div>
+    <div>Midpoint Absolute Diff: {{ absMidpointDist }}</div>
+    <div>% From Parent Midpoint: {{ percentFromParentMidpoint }}</div>
     <div>Is Left: {{ isLeft }}</div>
   </div>
 </template>
@@ -28,60 +32,67 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       left: 0,
       top: 0,
       offSetLeft: 0,
       offSetTop: 0,
-      midpoint: 0
-    }
+      midpoint: 0,
+      screenWidth: 75
+    };
   },
 
   methods: {
-    callback (e) {
-      this.$emit('ontouch', true)
-      this.getCoords(e)
+    callback(e) {
+      this.$emit("ontouch", true);
+      this.getCoords(e);
     },
-    endTouch () {
-      this.$emit('ontouch', false)
+    endTouch() {
+      this.$emit("ontouch", false);
     },
-    getCoords (e) {
+    getCoords(e) {
       if (e) {
-        this.left = e.touches[0].clientX
-        this.top = e.touches[0].clientY
+        this.left = e.touches[0].clientX;
+        this.top = e.touches[0].clientY;
       }
 
-      const rect = this.$el.getBoundingClientRect()
-      this.offSetTop = rect.top
-      this.offSetLeft = rect.left
-      this.midpoint = rect.width / 2 + rect.left
+      const rect = this.$el.getBoundingClientRect();
+      this.offSetTop = rect.top;
+      this.offSetLeft = rect.left;
+      this.midpoint = rect.width / 2 + rect.left;
     }
   },
 
   computed: {
-    isLeft () {
-      return this.midpoint + this.midpoint * 0.15 < this.parentMidPoint
+    isLeft() {
+      return this.midpoint + this.midpoint * 0.15 < this.parentMidPoint;
     },
-    isRight () {
-      return this.midpoint + this.midpoint * 0.15 > this.parentMidPoint
+    isRight() {
+      return this.midpoint + this.midpoint * 0.15 > this.parentMidPoint;
+    },
+    absMidpointDist() {
+      return Math.abs(this.midpoint - this.parentMidPoint);
+    },
+    percentFromParentMidpoint() {
+      return (this.absMidpointDist / this.parentMidPoint) * 100;
     }
   },
 
-  mounted () {
-    this.$el.addEventListener('touchstart', this.callback, false)
-    this.$el.addEventListener('touchmove', this.callback, false)
-    this.$el.addEventListener('touchend', this.endTouch, false)
+  mounted() {
+    this.$el.addEventListener("touchstart", this.callback, false);
+    this.$el.addEventListener("touchmove", this.callback, false);
+    this.$el.addEventListener("touchend", this.endTouch, false);
   },
 
   watch: {
-    isTouch () {
+    isTouch() {
       if (this.isTouch) {
-        this.getCoords()
+        this.getCoords();
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -96,7 +107,7 @@ export default {
   padding: 3em 0 3em 0;
   border-radius: 1.15em;
   top: 0;
-  transition: top 1s;
+  transition: top 0.15s;
 
   //   flex-shrink: 0;
   //   background: grey;
@@ -110,6 +121,6 @@ export default {
 }
 
 .non-active {
-  top: 2em;
+  top: 3em;
 }
 </style>
