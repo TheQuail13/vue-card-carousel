@@ -1,11 +1,11 @@
 <template>
-  <div class="c-main">
-    <span>Moust-Left: {{ left }}</span>
-    <span>Mouse-Top: {{ top }}</span>
-    <span>Top: {{ offSetTop }}</span>
-    <span>Left: {{ offSetLeft }}</span>
-    <span>Midpoint: {{ midpoint }}</span>
-    <span>Left or Right: {{ isLeft }}</span>
+  <div :class="['c-main', isLeft || isRight ? 'non-active' : null]">
+    <div>Moust-Left: {{ left }}</div>
+    <div>Mouse-Top: {{ top }}</div>
+    <div>Top: {{ offSetTop }}</div>
+    <div>Left: {{ offSetLeft }}</div>
+    <div>Midpoint: {{ midpoint }}</div>
+    <div>Is Left: {{ isLeft }}</div>
   </div>
 </template>
 
@@ -20,6 +20,11 @@ export default {
       type: Number,
       required: true,
       default: 0
+    },
+    isTouch: {
+      type: Boolean,
+      required: true,
+      default: false
     }
   },
 
@@ -35,9 +40,19 @@ export default {
 
   methods: {
     callback(e) {
+      this.$emit("ontouch", true);
+      this.getCoords(e);
+    },
+    endTouch() {
+      this.$emit("ontouch", false);
+    },
+    getCoords(e) {
+      if (e) {
+        this.left = e.touches[0].clientX;
+        this.top = e.touches[0].clientY;
+      }
+
       const rect = this.$el.getBoundingClientRect();
-      this.left = e.touches[0].clientX;
-      this.top = e.touches[0].clientY;
       this.offSetTop = rect.top;
       this.offSetLeft = rect.left;
       this.midpoint = rect.width / 2 + rect.left;
@@ -46,13 +61,25 @@ export default {
 
   computed: {
     isLeft() {
-      return this.midpoint < this.parentMidPoint;
+      return this.midpoint + this.midpoint * 0.15 < this.parentMidPoint;
+    },
+    isRight() {
+      return this.midpoint + this.midpoint * 0.15 > this.parentMidPoint;
     }
   },
 
   mounted() {
     this.$el.addEventListener("touchstart", this.callback, false);
     this.$el.addEventListener("touchmove", this.callback, false);
+    this.$el.addEventListener("touchend", this.endTouch, false);
+  },
+
+  watch: {
+    isTouch() {
+      if (this.isTouch) {
+        this.getCoords();
+      }
+    }
   }
 };
 </script>
@@ -62,11 +89,27 @@ export default {
   position: relative;
   background: grey;
   box-shadow: 2px 2px 15px 1px;
-  display: flex;
-  flex-direction: column;
-  min-width: 50vw;
-  margin: 10em;
+  // display: flex;
+  // flex-direction: column;
+  min-width: 75vw;
+  margin: 0 1em 0 1em;
+  padding: 3em 0 3em 0;
   border-radius: 1.15em;
-  padding: 5em;
+  top: 0;
+  transition: top 1s;
+
+  //   flex-shrink: 0;
+  //   background: grey;
+  //   width: 300px;
+  //   height: 200px;
+  //   border-radius: 10px;
+  //   margin-left: 10px;
+  //   background-size: cover;
+  //   background-repeat: no-repeat;
+  //   background-position: center center;
+}
+
+.non-active {
+  top: 2em;
 }
 </style>

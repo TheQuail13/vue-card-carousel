@@ -5,6 +5,8 @@
       :iterant="el"
       :key="elIdx"
       :parent-mid-point="midpoint"
+      :is-touch="isTouch"
+      @ontouch="handleTouch"
     ></Iteration>
   </div>
 </template>
@@ -25,8 +27,14 @@ export default {
   data() {
     return {
       listToIterate: [],
-      midpoint: 0
+      midpoint: 0,
+      isTouch: false
     };
+  },
+  methods: {
+    handleTouch(bool) {
+      this.isTouch = !this.isTouch;
+    }
   },
   computed: {
     parentMidPoint() {
@@ -57,22 +65,21 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+  width: 100%;
   background-color: rgba(0, 0, 0, 0.3);
+
   display: flex;
-  justify-content: center;
-  align-items: center;
   overflow-x: scroll;
-  padding-top: 300px;
-  padding-bottom: 300px;
+  width: 100%;
 }
 
-// /* Hide scrollbar for Chrome, Safari and Opera */
-// .c-backdrop::-webkit-scrollbar {
-//   display: none;
-// }
+/* Hide scrollbar for Chrome, Safari and Opera */
+.c-backdrop::-webkit-scrollbar {
+  display: none;
+}
 
-// /* Hide scrollbar for IE and Edge */
-// .c-backdrop {
-//   -ms-overflow-style: none;
-// }
+/* Hide scrollbar for IE and Edge */
+.c-backdrop {
+  -ms-overflow-style: none;
+}
 </style>
