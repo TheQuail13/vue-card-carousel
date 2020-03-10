@@ -1,12 +1,11 @@
 <template>
-  <div :class="['c-main', 'non-active']">
+  <div :class="['c-main']" :style="topStyle">
     <div>Moust-Left: {{ left }}</div>
     <div>Mouse-Top: {{ top }}</div>
     <div>Top: {{ offSetTop }}</div>
     <div>Left: {{ offSetLeft }}</div>
     <div>Midpoint: {{ midpoint }}</div>
     <div>Parent Midpoint: {{ parentMidPoint }}</div>
-    <div>Parent Width: {{ parentWidth }}</div>
     <div>Midpoint Absolute Diff: {{ absMidpointDist }}</div>
     <div>% From Parent Midpoint: {{ percentFromParentMidpoint }}</div>
     <div>Is Left: {{ isLeft }}</div>
@@ -75,7 +74,16 @@ export default {
       return Math.abs(this.midpoint - this.parentMidPoint);
     },
     percentFromParentMidpoint() {
-      return (this.absMidpointDist / this.parentMidPoint) * 100;
+      return this.absMidpointDist / this.parentMidPoint;
+    },
+    topStyle() {
+      if (this.percentFromParentMidpoint) {
+        return {
+          top: `${this.percentFromParentMidpoint * 3}em`
+        };
+      }
+
+      return null;
     }
   },
 
@@ -100,27 +108,11 @@ export default {
   position: relative;
   background: grey;
   box-shadow: 2px 2px 15px 1px;
-  // display: flex;
-  // flex-direction: column;
-  min-width: 75vw;
-  margin: 0 1em 0 1em;
+  min-width: 70vw;
+  margin: 3em 1em 3em 1em;
   padding: 3em 0 3em 0;
   border-radius: 1.15em;
   top: 0;
-  transition: top 0.15s;
-
-  //   flex-shrink: 0;
-  //   background: grey;
-  //   width: 300px;
-  //   height: 200px;
-  //   border-radius: 10px;
-  //   margin-left: 10px;
-  //   background-size: cover;
-  //   background-repeat: no-repeat;
-  //   background-position: center center;
-}
-
-.non-active {
-  top: 3em;
+  //   transition: top 0.15s;
 }
 </style>
