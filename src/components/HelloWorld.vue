@@ -58,10 +58,10 @@ export default {
   right: 0;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.3);
-
   display: flex;
   overflow-x: scroll;
   width: 100%;
+  scroll-snap-type: x mandatory;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

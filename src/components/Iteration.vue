@@ -113,6 +113,6 @@ export default {
   padding: 3em 0 3em 0;
   border-radius: 1.15em;
   top: 0;
-  //   transition: top 0.15s;
+  scroll-snap-align: center;
 }
 </style>
