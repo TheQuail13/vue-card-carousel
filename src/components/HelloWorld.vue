@@ -32,8 +32,12 @@ export default {
     };
   },
   methods: {
-    handleTouch(bool) {
+    handleTouch(bool, dist) {
       this.isTouch = !this.isTouch;
+      if (!bool) {
+        // console.log(dist);
+        // this.$el.scrollLeft = dist;
+      }
     }
   },
   mounted() {
@@ -56,7 +60,6 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  width: 100%;
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   overflow-x: scroll;

@@ -1,14 +1,11 @@
 <template>
   <div :class="['c-main']" :style="topStyle">
-    <div>Moust-Left: {{ left }}</div>
-    <div>Mouse-Top: {{ top }}</div>
-    <div>Top: {{ offSetTop }}</div>
-    <div>Left: {{ offSetLeft }}</div>
     <div>Midpoint: {{ midpoint }}</div>
     <div>Parent Midpoint: {{ parentMidPoint }}</div>
-    <div>Midpoint Absolute Diff: {{ absMidpointDist }}</div>
+    <div>Midpoint Diff: {{ midpointDist }}</div>
     <div>% From Parent Midpoint: {{ percentFromParentMidpoint }}</div>
-    <div>Is Left: {{ isLeft }}</div>
+    <div>Inverse of above: {{ 1 - percentFromParentMidpoint }}</div>
+    <div>Style: {{ topStyle }}</div>
   </div>
 </template>
 
@@ -44,11 +41,12 @@ export default {
 
   methods: {
     callback(e) {
+      console.log(e);
       this.$emit("ontouch", true);
       this.getCoords(e);
     },
     endTouch() {
-      this.$emit("ontouch", false);
+      this.$emit("ontouch", false, this.midpointDist);
     },
     getCoords(e) {
       if (e) {
@@ -64,22 +62,22 @@ export default {
   },
 
   computed: {
-    isLeft() {
-      return this.midpoint + this.midpoint * 0.15 < this.parentMidPoint;
-    },
-    isRight() {
-      return this.midpoint + this.midpoint * 0.15 > this.parentMidPoint;
-    },
-    absMidpointDist() {
-      return Math.abs(this.midpoint - this.parentMidPoint);
+    midpointDist() {
+      return this.midpoint - this.parentMidPoint;
     },
     percentFromParentMidpoint() {
-      return this.absMidpointDist / this.parentMidPoint;
+      return Math.abs(this.midpointDist) / this.parentMidPoint;
     },
     topStyle() {
       if (this.percentFromParentMidpoint) {
         return {
-          top: `${this.percentFromParentMidpoint * 3}em`
+          height: `${Math.max(1 - this.percentFromParentMidpoint + 0.45, 0.6) *
+            100}%`,
+          top: `${this.percentFromParentMidpoint * 3}em`,
+          opacity: `${Math.max(
+            1 - this.percentFromParentMidpoint + 0.35,
+            0.45
+          )}`
         };
       }
 
@@ -91,6 +89,12 @@ export default {
     this.$el.addEventListener("touchstart", this.callback, false);
     this.$el.addEventListener("touchmove", this.callback, false);
     this.$el.addEventListener("touchend", this.endTouch, false);
+  },
+
+  destroyed() {
+    this.$el.removeEventListener("touchstart", this.callback, false);
+    this.$el.removeEventListener("touchmove", this.callback, false);
+    this.$el.removeEventListener("touchend", this.endTouch, false);
   },
 
   watch: {
@@ -106,13 +110,14 @@ export default {
 <style lang="scss" scoped>
 .c-main {
   position: relative;
-  background: grey;
+  background: white;
   box-shadow: 2px 2px 15px 1px;
   min-width: 70vw;
   margin: 3em 1em 3em 1em;
   padding: 3em 0 3em 0;
   border-radius: 1.15em;
   top: 0;
-  scroll-snap-align: center;
+  max-height: 65%;
+  //   scroll-snap-align: center;
 }
 </style>
