@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Iteration from "./Iteration";
+import Iteration from './Iteration'
 
 export default {
   components: {
@@ -24,33 +24,33 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       listToIterate: [],
       midpoint: 0,
       isTouch: false
-    };
+    }
   },
   methods: {
-    handleTouch(bool, dist) {
-      this.isTouch = !this.isTouch;
+    handleTouch (bool, dist) {
+      this.isTouch = !this.isTouch
       if (!bool) {
         // console.log(dist);
         // this.$el.scrollLeft = dist;
       }
     }
   },
-  mounted() {
-    const rect = this.$el.getBoundingClientRect();
-    this.midpoint = rect.width / 2 + rect.left;
+  mounted () {
+    const rect = this.$el.getBoundingClientRect()
+    this.midpoint = rect.width / 2 + rect.left
   },
-  created() {
+  created () {
     this.listToIterate = this.elements.map((row, index) => ({
       ...row,
       cMainId: index
-    }));
+    }))
   }
-};
+}
 </script>
 
 <style scoped lang="scss">
@@ -65,7 +65,6 @@ export default {
   overflow-x: scroll;
   width: 100%;
   height: 100%;
-  scroll-snap-type: x mandatory;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -78,6 +77,10 @@ export default {
   -ms-overflow-style: none;
 }
 
+.c-main:first-child {
+  margin-left: 2rem;
+}
+
 // necessary for overflow not displaying right-padding
 // credit: https://blog.alexandergottlieb.com/overflow-scroll-and-the-right-padding-problem-a-css-only-solution-6d442915b3f4
 .c-main:after {
@@ -87,9 +90,5 @@ export default {
   right: -2rem;
   width: 2rem;
   height: 1px;
-}
-
-.c-main:first-child {
-  margin-left: 2rem;
 }
 </style>
