@@ -1,8 +1,8 @@
 <template>
   <div :class="['c-main']" :style="topStyle">
-    <!-- <div>Midpoint: {{ midpoint }}</div>
+    <div>Midpoint: {{ midpoint }}</div>
     <div>Parent Midpoint: {{ parentMidPoint }}</div>
-    <div>Midpoint Diff: {{ midpointDist }}</div> -->
+    <div>Midpoint Diff: {{ midpointDist }}</div>
     <!-- <div>
       % From Parent Midpoint:
       {{ (percentFromParentMidpoint * 100).toFixed() }}%
@@ -35,7 +35,7 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       left: 0,
       top: 0,
@@ -43,70 +43,74 @@ export default {
       offSetTop: 0,
       midpoint: 0,
       screenWidth: 75
-    }
+    };
   },
 
   methods: {
-    callback (e) {
-      this.$emit('ontouch', true)
-      this.getCoords(e)
+    callback(e) {
+      console.log(this);
+      this.$emit("ontouch", true);
+      this.getCoords(e);
     },
-    endTouch () {
-      this.$emit('ontouch', false, this.midpointDist)
+    endTouch() {
+      this.$emit("ontouch", false, this.midpointDist);
+      console.log("Id: ", this.iterant.cMainId);
     },
-    getCoords (e) {
+    getCoords(e) {
       if (e) {
-        this.left = e.touches[0].clientX
-        this.top = e.touches[0].clientY
+        this.left = e.touches[0].clientX;
+        this.top = e.touches[0].clientY;
+        console.log();
       }
 
-      const rect = this.$el.getBoundingClientRect()
-      this.offSetTop = rect.top
-      this.offSetLeft = rect.left
-      this.midpoint = rect.width / 2 + rect.left
+      const rect = this.$el.getBoundingClientRect();
+      this.offSetTop = rect.top;
+      this.offSetLeft = rect.left;
+      this.midpoint = rect.width / 2 + rect.left;
+      this.iterant.distFromParentCenter = this.midpoint - this.parentMidPoint;
     }
   },
 
   computed: {
-    midpointDist () {
-      return this.midpoint - this.parentMidPoint
+    midpointDist() {
+      return this.midpoint - this.parentMidPoint;
     },
-    percentFromParentMidpoint () {
-      return Math.abs(this.midpointDist) / this.parentMidPoint
+    percentFromParentMidpoint() {
+      return Math.abs(this.midpointDist) / this.parentMidPoint;
     },
-    topStyle () {
+    topStyle() {
       if (this.percentFromParentMidpoint) {
         return {
           height: `${Math.max(1.1 - this.percentFromParentMidpoint * 0.5, 0.5) *
             100}vh`,
           opacity: `${Math.max(1.65 - this.percentFromParentMidpoint, 0.45)}`
-        }
+        };
       }
 
-      return null
+      return null;
     }
   },
 
-  mounted () {
-    this.$el.addEventListener('touchstart', this.callback, false)
-    this.$el.addEventListener('touchmove', this.callback, false)
-    this.$el.addEventListener('touchend', this.endTouch, false)
+  mounted() {
+    this.$el.addEventListener("touchstart", this.callback, false);
+    this.$el.addEventListener("touchmove", this.callback, false);
+    this.$el.addEventListener("touchend", this.endTouch, false);
   },
 
-  destroyed () {
-    this.$el.removeEventListener('touchstart', this.callback, false)
-    this.$el.removeEventListener('touchmove', this.callback, false)
-    this.$el.removeEventListener('touchend', this.endTouch, false)
+  destroyed() {
+    this.$el.removeEventListener("touchstart", this.callback, false);
+    this.$el.removeEventListener("touchmove", this.callback, false);
+    this.$el.removeEventListener("touchend", this.endTouch, false);
   },
 
   watch: {
-    isTouch () {
+    isTouch() {
       if (this.isTouch) {
-        this.getCoords()
+        this.getCoords();
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

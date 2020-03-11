@@ -8,49 +8,72 @@
       :is-touch="isTouch"
       @ontouch="handleTouch"
     ></Iteration>
+    <span>{{ closestToMiddle.cMainId }}</span>
   </div>
 </template>
 
 <script>
-import Iteration from './Iteration'
+import Iteration from "./Iteration";
 
 export default {
   components: {
     Iteration
   },
+
   props: {
     elements: {
       type: Array,
       required: true
     }
   },
-  data () {
+
+  data() {
     return {
       listToIterate: [],
       midpoint: 0,
       isTouch: false
-    }
+    };
   },
+
   methods: {
-    handleTouch (bool, dist) {
-      this.isTouch = !this.isTouch
+    handleTouch(bool, dist) {
+      this.isTouch = !this.isTouch;
       if (!bool) {
         // console.log(dist);
         // this.$el.scrollLeft = dist;
       }
     }
   },
-  mounted () {
-    const rect = this.$el.getBoundingClientRect()
-    this.midpoint = rect.width / 2 + rect.left
+
+  computed: {
+    closestToMiddle() {
+      if (this.listToIterate.length > 0) {
+        return this.listToIterate.reduce(
+          (acc, curr) =>
+            Math.abs(acc.distFromParentCenter) <
+            Math.abs(curr.distFromParentCenter)
+              ? acc
+              : curr,
+          {}
+        );
+      }
+      return {};
+    }
   },
-  created () {
+
+  mounted() {
+    const rect = this.$el.getBoundingClientRect();
+    this.midpoint = rect.width / 2 + rect.left;
+  },
+
+  created() {
     this.listToIterate = this.elements.map((row, index) => ({
       ...row,
-      cMainId: index
-    }))
+      cMainId: index,
+      distFromParentCenter: 0
+    }));
   }
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -78,7 +101,7 @@ export default {
 }
 
 .c-main:first-child {
-  margin-left: 2rem;
+  margin-left: 3rem;
 }
 
 // necessary for overflow not displaying right-padding
@@ -87,8 +110,8 @@ export default {
   content: "";
   display: block;
   position: absolute;
-  right: -2rem;
-  width: 2rem;
+  right: -3rem;
+  width: 3rem;
   height: 1px;
 }
 </style>
