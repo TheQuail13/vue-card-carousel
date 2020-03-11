@@ -64,6 +64,7 @@ export default {
   display: flex;
   overflow-x: scroll;
   width: 100%;
+  height: 100%;
   scroll-snap-type: x mandatory;
 }
 
@@ -75,5 +76,20 @@ export default {
 /* Hide scrollbar for IE and Edge */
 .c-backdrop {
   -ms-overflow-style: none;
+}
+
+// necessary for overflow not displaying right-padding
+// credit: https://blog.alexandergottlieb.com/overflow-scroll-and-the-right-padding-problem-a-css-only-solution-6d442915b3f4
+.c-main:after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: -2rem;
+  width: 2rem;
+  height: 1px;
+}
+
+.c-main:first-child {
+  margin-left: 2rem;
 }
 </style>

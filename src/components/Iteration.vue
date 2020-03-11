@@ -1,11 +1,18 @@
 <template>
   <div :class="['c-main']" :style="topStyle">
-    <div>Midpoint: {{ midpoint }}</div>
+    <!-- <div>Midpoint: {{ midpoint }}</div>
     <div>Parent Midpoint: {{ parentMidPoint }}</div>
-    <div>Midpoint Diff: {{ midpointDist }}</div>
-    <div>% From Parent Midpoint: {{ percentFromParentMidpoint }}</div>
-    <div>Inverse of above: {{ 1 - percentFromParentMidpoint }}</div>
-    <div>Style: {{ topStyle }}</div>
+    <div>Midpoint Diff: {{ midpointDist }}</div> -->
+    <!-- <div>
+      % From Parent Midpoint:
+      {{ (percentFromParentMidpoint * 100).toFixed() }}%
+    </div>
+    <div>
+      Inverse of above:
+      {{ ((1 - percentFromParentMidpoint) * 100).toFixed() }}%
+    </div> -->
+    <div>Id: {{ iterant.cMainId }}</div>
+    <!-- <div v-if="topStyle">Height: {{ topStyle.height }}</div> -->
   </div>
 </template>
 
@@ -41,7 +48,6 @@ export default {
 
   methods: {
     callback(e) {
-      console.log(e);
       this.$emit("ontouch", true);
       this.getCoords(e);
     },
@@ -71,13 +77,9 @@ export default {
     topStyle() {
       if (this.percentFromParentMidpoint) {
         return {
-          height: `${Math.max(1 - this.percentFromParentMidpoint + 0.45, 0.6) *
-            100}%`,
-          top: `${this.percentFromParentMidpoint * 3}em`,
-          opacity: `${Math.max(
-            1 - this.percentFromParentMidpoint + 0.35,
-            0.45
-          )}`
+          height: `${Math.max(1.1 - this.percentFromParentMidpoint * 0.5, 0.5) *
+            100}vh`,
+          opacity: `${Math.max(1.65 - this.percentFromParentMidpoint, 0.45)}`
         };
       }
 
@@ -112,12 +114,12 @@ export default {
   position: relative;
   background: white;
   box-shadow: 2px 2px 15px 1px;
-  min-width: 70vw;
-  margin: 3em 1em 3em 1em;
+  min-width: 75vw;
+  margin: auto 0.85em auto 0.85em;
   padding: 3em 0 3em 0;
   border-radius: 1.15em;
   top: 0;
-  max-height: 65%;
+  max-height: 70%;
   //   scroll-snap-align: center;
 }
 </style>
