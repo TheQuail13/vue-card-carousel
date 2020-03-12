@@ -28,18 +28,17 @@ export default {
 
   data() {
     return {
-      midpoint: 0,
-      screenWidth: 75
+      midpoint: 0
     };
   },
 
   methods: {
-    callback(e) {
+    onTouch(e) {
       this.$emit("ontouch", true);
       this.getCoords(e);
     },
     endTouch() {
-      this.$emit("ontouch", false, this.midpointDist);
+      this.$emit("ontouch", false, this.iterant.startLeftDist);
     },
     getCoords(e) {
       const rect = this.$el.getBoundingClientRect();
@@ -69,14 +68,15 @@ export default {
   },
 
   mounted() {
-    this.$el.addEventListener("touchstart", this.callback, false);
-    this.$el.addEventListener("touchmove", this.callback, false);
+    this.iterant.startLeftDist = this.$el.offsetLeft;
+    this.$el.addEventListener("touchstart", this.onTouch, false);
+    this.$el.addEventListener("touchmove", this.onTouch, false);
     this.$el.addEventListener("touchend", this.endTouch, false);
   },
 
   destroyed() {
-    this.$el.removeEventListener("touchstart", this.callback, false);
-    this.$el.removeEventListener("touchmove", this.callback, false);
+    this.$el.removeEventListener("touchstart", this.onTouch, false);
+    this.$el.removeEventListener("touchmove", this.onTouch, false);
     this.$el.removeEventListener("touchend", this.endTouch, false);
   },
 
