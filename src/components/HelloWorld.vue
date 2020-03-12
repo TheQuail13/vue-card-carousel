@@ -8,7 +8,6 @@
       :is-touch="isTouch"
       @ontouch="handleTouch"
     ></Iteration>
-    <span>{{ closestToMiddle.cMainId }}</span>
   </div>
 </template>
 

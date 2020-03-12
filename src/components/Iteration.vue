@@ -1,18 +1,9 @@
 <template>
   <div :class="['c-main']" :style="topStyle">
-    <div>Midpoint: {{ midpoint }}</div>
+    <!-- <div>Midpoint: {{ midpoint }}</div>
     <div>Parent Midpoint: {{ parentMidPoint }}</div>
-    <div>Midpoint Diff: {{ midpointDist }}</div>
-    <!-- <div>
-      % From Parent Midpoint:
-      {{ (percentFromParentMidpoint * 100).toFixed() }}%
-    </div>
-    <div>
-      Inverse of above:
-      {{ ((1 - percentFromParentMidpoint) * 100).toFixed() }}%
-    </div> -->
+    <div>Midpoint Diff: {{ midpointDist }}</div> -->
     <div>Id: {{ iterant.cMainId }}</div>
-    <!-- <div v-if="topStyle">Height: {{ topStyle.height }}</div> -->
   </div>
 </template>
 
@@ -37,10 +28,6 @@ export default {
 
   data() {
     return {
-      left: 0,
-      top: 0,
-      offSetLeft: 0,
-      offSetTop: 0,
       midpoint: 0,
       screenWidth: 75
     };
@@ -48,24 +35,14 @@ export default {
 
   methods: {
     callback(e) {
-      console.log(this);
       this.$emit("ontouch", true);
       this.getCoords(e);
     },
     endTouch() {
       this.$emit("ontouch", false, this.midpointDist);
-      console.log("Id: ", this.iterant.cMainId);
     },
     getCoords(e) {
-      if (e) {
-        this.left = e.touches[0].clientX;
-        this.top = e.touches[0].clientY;
-        console.log();
-      }
-
       const rect = this.$el.getBoundingClientRect();
-      this.offSetTop = rect.top;
-      this.offSetLeft = rect.left;
       this.midpoint = rect.width / 2 + rect.left;
       this.iterant.distFromParentCenter = this.midpoint - this.parentMidPoint;
     }
