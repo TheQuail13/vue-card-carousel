@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Iteration from "./Iteration";
+import Iteration from './Iteration'
 
 export default {
   components: {
@@ -26,32 +26,32 @@ export default {
     }
   },
 
-  data() {
+  data () {
     return {
       listToIterate: [],
       midpoint: 0,
       isTouch: false,
       fullWidth: 0,
       quarterWidth: 0
-    };
+    }
   },
 
   methods: {
-    handleTouch(bool, leftStart) {
-      this.isTouch = !this.isTouch;
+    handleTouch (bool, leftStart) {
+      this.isTouch = !this.isTouch
       if (!bool) {
-        const leftDistance =
-          this.quarterWidth + this.fullWidth * this.closestToMiddle.cMainId;
-        console.log(leftStart);
-        console.log(this);
-        console.log(this.$el.scrollLeft);
-        this.$el.scrollLeft = leftStart;
+        // const leftDistance =
+        //   this.quarterWidth + this.fullWidth * this.closestToMiddle.cMainId
+        console.log(leftStart)
+        console.log(this)
+        console.log(this.$el.scrollLeft)
+        this.$el.scrollLeft = leftStart
       }
     }
   },
 
   computed: {
-    closestToMiddle() {
+    closestToMiddle () {
       if (this.listToIterate.length > 0) {
         return this.listToIterate.reduce(
           (acc, curr) =>
@@ -60,28 +60,28 @@ export default {
               ? acc
               : curr,
           {}
-        );
+        )
       }
-      return {};
+      return {}
     }
   },
 
-  mounted() {
-    const rect = this.$el.getBoundingClientRect();
-    this.midpoint = rect.width / 2 + rect.left;
-    this.fullWidth = window.screen.width;
-    this.quarterWidth = window.screen.width * 0.25;
+  mounted () {
+    const rect = this.$el.getBoundingClientRect()
+    this.midpoint = rect.width / 2 + rect.left
+    this.fullWidth = window.screen.width
+    this.quarterWidth = window.screen.width * 0.25
   },
 
-  created() {
+  created () {
     this.listToIterate = this.elements.map((row, index) => ({
       ...row,
       cMainId: index,
       distFromParentCenter: 0,
       startLeftDist: 0
-    }));
+    }))
   }
-};
+}
 </script>
 
 <style scoped lang="scss">
