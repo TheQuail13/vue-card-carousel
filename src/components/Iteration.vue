@@ -51,11 +51,12 @@ export default {
       this.iterant.distFromParentCenter = this.midpoint - this.parentMidPoint;
     },
     isScrolling() {
-      console.log("isScrolling");
-      if (this.lastScrollLeft !== this.left) {
+      let left = this.$el.getBoundingClientRect().left;
+      console.log(this.lastScrollLeft, left);
+      if (this.lastScrollLeft !== left) {
         console.log("scroll x");
-        this.getCoords();
-        this.lastScrollLeft = this.left;
+        this.lastScrollLeft = left;
+        this.onTouch();
         this.animationId = window.requestAnimationFrame(this.isScrolling);
       } else {
         console.log("scroll stopped");
