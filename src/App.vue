@@ -5,19 +5,19 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     HelloWorld
   },
-  data() {
+  data () {
     return {
       elements: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
-    };
+    }
   }
-};
+}
 </script>
 
 <style lang="scss">

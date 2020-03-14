@@ -1,10 +1,5 @@
 <template>
-  <div :class="['c-main']" :style="topStyle">
-    <!-- <div>Midpoint: {{ midpoint }}</div>
-    <div>Parent Midpoint: {{ parentMidPoint }}</div>
-    <div>Midpoint Diff: {{ midpointDist }}</div> -->
-    <div>Id: {{ iterant.cMainId }}</div>
-  </div>
+  <div :class="['c-main']" :style="topStyle"></div>
 </template>
 
 <script>
@@ -26,84 +21,81 @@ export default {
     }
   },
 
-  data() {
+  data () {
     return {
       left: 0,
       midpoint: 0,
       lastScrollLeft: 0,
       animationId: 0
-    };
+    }
   },
 
   methods: {
-    onTouch(e) {
-      this.$emit("ontouch", true);
-      this.getCoords(e);
+    onTouch (e) {
+      this.$emit('ontouch', true)
+      this.getCoords(e)
     },
-    endTouch() {
-      this.$emit("ontouch", false, this.iterant.startLeftDist);
-      this.animationId = window.requestAnimationFrame(this.isScrolling);
+    endTouch () {
+      this.$emit('ontouch', false, this.iterant.startLeftDist)
+      this.animationId = window.requestAnimationFrame(this.isScrolling)
     },
-    getCoords(e) {
-      const rect = this.$el.getBoundingClientRect();
-      this.left = rect.left;
-      this.midpoint = rect.width / 2 + rect.left;
-      this.iterant.distFromParentCenter = this.midpoint - this.parentMidPoint;
+    getCoords (e) {
+      const rect = this.$el.getBoundingClientRect()
+      this.left = rect.left
+      this.midpoint = rect.width / 2 + rect.left
+      this.iterant.distFromParentCenter = this.midpoint - this.parentMidPoint
     },
-    isScrolling() {
-      let left = this.$el.getBoundingClientRect().left;
-      console.log(this.lastScrollLeft, left);
+    isScrolling () {
+      const left = this.$el.getBoundingClientRect().left
       if (this.lastScrollLeft !== left) {
-        console.log("scroll x");
-        this.lastScrollLeft = left;
-        this.onTouch();
-        this.animationId = window.requestAnimationFrame(this.isScrolling);
+        this.lastScrollLeft = left
+        this.onTouch()
+        this.animationId = window.requestAnimationFrame(this.isScrolling)
       } else {
-        console.log("scroll stopped");
-        window.cancelAnimationFrame(this.animationId);
+        window.cancelAnimationFrame(this.animationId)
       }
     }
   },
 
   computed: {
-    midpointDist() {
-      return this.midpoint - this.parentMidPoint;
+    midpointDist () {
+      return this.midpoint - this.parentMidPoint
     },
-    percentFromParentMidpoint() {
-      return Math.abs(this.midpointDist) / this.parentMidPoint;
+    percentFromParentMidpoint () {
+      return Math.abs(this.midpointDist) / this.parentMidPoint
     },
-    topStyle() {
+    topStyle () {
       if (this.percentFromParentMidpoint) {
         return {
           height: `${Math.max(1.1 - this.percentFromParentMidpoint * 0.5, 0.5) *
             100}vh`,
           opacity: `${Math.max(1.65 - this.percentFromParentMidpoint, 0.45)}`
-        };
+        }
       }
 
-      return null;
+      return null
     }
   },
 
-  mounted() {
-    this.iterant.startLeftDist = this.$el.offsetLeft;
-    this.$el.addEventListener("touchstart", this.onTouch, false);
-    this.$el.addEventListener("touchmove", this.onTouch, false);
-    this.$el.addEventListener("touchend", this.endTouch, false);
+  mounted () {
+    this.iterant.startLeftDist = this.$el.offsetLeft
+    this.$el.addEventListener('touchstart', this.onTouch, false)
+    this.$el.addEventListener('touchmove', this.onTouch, false)
+    this.$el.addEventListener('touchend', this.endTouch, false)
   },
 
-  destroyed() {
-    this.$el.removeEventListener("touchstart", this.onTouch, false);
-    this.$el.removeEventListener("touchmove", this.onTouch, false);
-    this.$el.removeEventListener("touchend", this.endTouch, false);
+  destroyed () {
+    this.$el.removeEventListener('touchstart', this.onTouch, false)
+    this.$el.removeEventListener('touchmove', this.onTouch, false)
+    this.$el.removeEventListener('touchend', this.endTouch, false)
   },
 
   watch: {
-    isTouch() {
-      this.getCoords();
+    isTouch () {
+      this.getCoords()
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

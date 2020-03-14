@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Iteration from "./Iteration";
+import Iteration from './Iteration'
 
 export default {
   components: {
@@ -26,7 +26,7 @@ export default {
     }
   },
 
-  data() {
+  data () {
     return {
       listToIterate: [],
       midpoint: 0,
@@ -34,24 +34,23 @@ export default {
       fullWidth: 0,
       quarterWidth: 0,
       elClosestToMiddle: null
-    };
+    }
   },
 
   methods: {
-    handleTouch(bool, leftStart) {
-      this.isTouch = !this.isTouch;
+    handleTouch (bool, leftStart) {
+      this.isTouch = !this.isTouch
       if (!bool) {
-        this.elClosestToMiddle = this.getClosestElToMiddle();
+        this.elClosestToMiddle = this.getClosestElToMiddle()
         const opt = {
           top: 0,
           left: this.elClosestToMiddle.distFromParentCenter,
-          behavior: "smooth"
-        };
-        this.$el.scrollBy(opt);
-        // this.isTouch = !this.isTouch;
+          behavior: 'smooth'
+        }
+        this.$el.scrollBy(opt)
       }
     },
-    getClosestElToMiddle() {
+    getClosestElToMiddle () {
       if (this.listToIterate.length > 0) {
         return this.listToIterate.reduce(
           (acc, curr) =>
@@ -60,28 +59,28 @@ export default {
               ? acc
               : curr,
           {}
-        );
+        )
       }
-      return {};
+      return {}
     }
   },
 
-  mounted() {
-    const rect = this.$el.getBoundingClientRect();
-    this.midpoint = rect.width / 2 + rect.left;
-    this.fullWidth = window.screen.width;
-    this.quarterWidth = window.screen.width * 0.25;
+  mounted () {
+    const rect = this.$el.getBoundingClientRect()
+    this.midpoint = rect.width / 2 + rect.left
+    this.fullWidth = window.screen.width
+    this.quarterWidth = window.screen.width * 0.25
   },
 
-  created() {
+  created () {
     this.listToIterate = this.elements.map((row, index) => ({
       ...row,
       cMainId: index,
       distFromParentCenter: 0,
       startLeftDist: 0
-    }));
+    }))
   }
-};
+}
 </script>
 
 <style scoped lang="scss">
