@@ -26,68 +26,83 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
-      midpoint: 0
-    }
+      left: 0,
+      midpoint: 0,
+      lastScrollLeft: 0,
+      animationId: 0
+    };
   },
 
   methods: {
-    onTouch (e) {
-      this.$emit('ontouch', true)
-      this.getCoords(e)
+    onTouch(e) {
+      this.$emit("ontouch", true);
+      this.getCoords(e);
     },
-    endTouch () {
-      this.$emit('ontouch', false, this.iterant.startLeftDist)
+    endTouch() {
+      this.$emit("ontouch", false, this.iterant.startLeftDist);
+      this.animationId = window.requestAnimationFrame(this.isScrolling);
     },
-    getCoords (e) {
-      const rect = this.$el.getBoundingClientRect()
-      this.midpoint = rect.width / 2 + rect.left
-      this.iterant.distFromParentCenter = this.midpoint - this.parentMidPoint
+    getCoords(e) {
+      const rect = this.$el.getBoundingClientRect();
+      this.left = rect.left;
+      this.midpoint = rect.width / 2 + rect.left;
+      this.iterant.distFromParentCenter = this.midpoint - this.parentMidPoint;
+    },
+    isScrolling() {
+      console.log("isScrolling");
+      if (this.lastScrollLeft !== this.left) {
+        console.log("scroll x");
+        this.getCoords();
+        this.lastScrollLeft = this.left;
+        this.animationId = window.requestAnimationFrame(this.isScrolling);
+      } else {
+        console.log("scroll stopped");
+        window.cancelAnimationFrame(this.animationId);
+      }
     }
   },
 
   computed: {
-    midpointDist () {
-      return this.midpoint - this.parentMidPoint
+    midpointDist() {
+      return this.midpoint - this.parentMidPoint;
     },
-    percentFromParentMidpoint () {
-      return Math.abs(this.midpointDist) / this.parentMidPoint
+    percentFromParentMidpoint() {
+      return Math.abs(this.midpointDist) / this.parentMidPoint;
     },
-    topStyle () {
+    topStyle() {
       if (this.percentFromParentMidpoint) {
         return {
           height: `${Math.max(1.1 - this.percentFromParentMidpoint * 0.5, 0.5) *
             100}vh`,
           opacity: `${Math.max(1.65 - this.percentFromParentMidpoint, 0.45)}`
-        }
+        };
       }
 
-      return null
+      return null;
     }
   },
 
-  mounted () {
-    this.iterant.startLeftDist = this.$el.offsetLeft
-    this.$el.addEventListener('touchstart', this.onTouch, false)
-    this.$el.addEventListener('touchmove', this.onTouch, false)
-    this.$el.addEventListener('touchend', this.endTouch, false)
+  mounted() {
+    this.iterant.startLeftDist = this.$el.offsetLeft;
+    this.$el.addEventListener("touchstart", this.onTouch, false);
+    this.$el.addEventListener("touchmove", this.onTouch, false);
+    this.$el.addEventListener("touchend", this.endTouch, false);
   },
 
-  destroyed () {
-    this.$el.removeEventListener('touchstart', this.onTouch, false)
-    this.$el.removeEventListener('touchmove', this.onTouch, false)
-    this.$el.removeEventListener('touchend', this.endTouch, false)
+  destroyed() {
+    this.$el.removeEventListener("touchstart", this.onTouch, false);
+    this.$el.removeEventListener("touchmove", this.onTouch, false);
+    this.$el.removeEventListener("touchend", this.endTouch, false);
   },
 
   watch: {
-    isTouch () {
-      if (this.isTouch) {
-        this.getCoords()
-      }
+    isTouch() {
+      this.getCoords();
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
