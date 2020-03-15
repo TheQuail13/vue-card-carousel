@@ -21,81 +21,81 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       left: 0,
-      midpoint: 0,
+      elMidpoint: 0,
       lastScrollLeft: 0,
       animationId: 0
-    }
+    };
   },
 
   methods: {
-    onTouch (e) {
-      this.$emit('ontouch', true)
-      this.getCoords(e)
+    onTouch() {
+      this.$emit("ontouch", true);
+      this.getElCoords();
     },
-    endTouch () {
-      this.$emit('ontouch', false, this.iterant.startLeftDist)
-      this.animationId = window.requestAnimationFrame(this.isScrolling)
+    endTouch() {
+      this.$emit("ontouch", false, this.iterant.startLeftDist);
+      this.animationId = window.requestAnimationFrame(this.checkIsScrolling);
     },
-    getCoords (e) {
-      const rect = this.$el.getBoundingClientRect()
-      this.left = rect.left
-      this.midpoint = rect.width / 2 + rect.left
-      this.iterant.distFromParentCenter = this.midpoint - this.parentMidPoint
+    getElCoords() {
+      const rect = this.$el.getBoundingClientRect();
+      this.left = rect.left;
+      this.elMidpoint = rect.width / 2 + rect.left;
+      this.iterant.distFromParentCenter = this.elMidpoint - this.parentMidPoint;
     },
-    isScrolling () {
-      const left = this.$el.getBoundingClientRect().left
-      if (this.lastScrollLeft !== left) {
-        this.lastScrollLeft = left
-        this.onTouch()
-        this.animationId = window.requestAnimationFrame(this.isScrolling)
+    checkIsScrolling() {
+      const elLeft = this.$el.getBoundingClientRect().left;
+      if (this.lastScrollLeft !== elLeft) {
+        this.lastScrollLeft = elLeft;
+        this.onTouch();
+        console.log("left", this.left);
+        this.animationId = window.requestAnimationFrame(this.checkIsScrolling);
       } else {
-        window.cancelAnimationFrame(this.animationId)
+        window.cancelAnimationFrame(this.animationId);
       }
     }
   },
 
   computed: {
-    midpointDist () {
-      return this.midpoint - this.parentMidPoint
+    percentFromParentMidpoint() {
+      return (
+        Math.abs(this.elMidpoint - this.parentMidPoint) / this.parentMidPoint
+      );
     },
-    percentFromParentMidpoint () {
-      return Math.abs(this.midpointDist) / this.parentMidPoint
-    },
-    topStyle () {
-      if (this.percentFromParentMidpoint) {
+    topStyle() {
+      if (typeof this.percentFromParentMidpoint !== "undefined") {
         return {
           height: `${Math.max(1.1 - this.percentFromParentMidpoint * 0.5, 0.5) *
             100}vh`,
           opacity: `${Math.max(1.65 - this.percentFromParentMidpoint, 0.45)}`
-        }
+        };
       }
 
-      return null
+      return null;
     }
   },
 
-  mounted () {
-    this.iterant.startLeftDist = this.$el.offsetLeft
-    this.$el.addEventListener('touchstart', this.onTouch, false)
-    this.$el.addEventListener('touchmove', this.onTouch, false)
-    this.$el.addEventListener('touchend', this.endTouch, false)
+  mounted() {
+    this.iterant.startLeftDist = this.$el.offsetLeft;
+    this.$el.addEventListener("touchstart", this.onTouch, false);
+    this.$el.addEventListener("touchmove", this.onTouch, false);
+    this.$el.addEventListener("touchend", this.endTouch, false);
   },
 
-  destroyed () {
-    this.$el.removeEventListener('touchstart', this.onTouch, false)
-    this.$el.removeEventListener('touchmove', this.onTouch, false)
-    this.$el.removeEventListener('touchend', this.endTouch, false)
+  destroyed() {
+    this.$el.removeEventListener("touchstart", this.onTouch, false);
+    this.$el.removeEventListener("touchmove", this.onTouch, false);
+    this.$el.removeEventListener("touchend", this.endTouch, false);
   },
 
   watch: {
-    isTouch () {
-      this.getCoords()
+    isTouch() {
+      this.getElCoords();
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
