@@ -46,14 +46,15 @@ export default {
       this.getElCoords();
     },
     isTouching() {
-      if (this.isScrolling) {
-        console.log("Inside isTouching");
-        this.getElCoords();
-        this.scrollingId = window.requestAnimationFrame(this.isTouching);
-      } else {
-        console.log("stopped touching");
-        window.cancelAnimationFrame(this.scrollingId);
-      }
+      // if (this.isScrolling) {
+      console.log("Inside isTouching");
+      this.getElCoords();
+      this.scrollingId = window.requestAnimationFrame(this.isTouching);
+      // }
+      // else {
+      //   // console.log("stopped touching");
+      //   // window.cancelAnimationFrame(this.scrollingId);
+      // }
     },
     endTouch() {
       this.$emit("ontouch", false, this.iterant.startLeftDist);
@@ -74,6 +75,8 @@ export default {
         this.stopId = window.requestAnimationFrame(this.checkIsScrolling);
       } else {
         this.touchStart();
+        console.log("Cancelling animations");
+        window.cancelAnimationFrame(this.scrollingId);
         window.cancelAnimationFrame(this.stopId);
       }
     }
