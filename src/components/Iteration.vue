@@ -26,100 +26,100 @@ export default {
     }
   },
 
-  data() {
+  data () {
     return {
       left: 0,
       elMidpoint: 0,
       lastScrollLeft: 0,
       scrollingId: 0,
-      stopId: 0
-    };
+      stopId: 0,
+      startTime: null,
+      duration: 1000
+    }
   },
 
   methods: {
-    onTouchWrapper() {
-      this.$emit("onscroll", true);
-      this.touchStart();
+    onTouchWrapper () {
+      this.$emit('onscroll', true)
+      this.touchStart()
     },
-    touchStart() {
-      this.$emit("ontouch", true);
-      this.getElCoords();
+    touchStart () {
+      this.$emit('ontouch', true)
+      this.getElCoords()
     },
-    isTouching() {
-      // if (this.isScrolling) {
-      console.log("Inside isTouching");
-      this.getElCoords();
-      this.scrollingId = window.requestAnimationFrame(this.isTouching);
-      // }
-      // else {
-      //   // console.log("stopped touching");
-      //   // window.cancelAnimationFrame(this.scrollingId);
-      // }
-    },
-    endTouch() {
-      this.$emit("ontouch", false, this.iterant.startLeftDist);
-      this.$emit("onscroll", false);
-      this.stopId = window.requestAnimationFrame(this.checkIsScrolling);
-    },
-    getElCoords() {
-      const rect = this.$el.getBoundingClientRect();
-      this.left = rect.left;
-      this.elMidpoint = rect.width / 2 + rect.left;
-      this.iterant.distFromParentCenter = this.elMidpoint - this.parentMidPoint;
-    },
-    checkIsScrolling() {
-      const elLeft = this.$el.getBoundingClientRect().left;
-      if (this.lastScrollLeft !== elLeft) {
-        this.lastScrollLeft = elLeft;
-        this.touchStart();
-        this.stopId = window.requestAnimationFrame(this.checkIsScrolling);
+    isTouching () {
+      this.getElCoords()
+      if (this.isScrolling) {
+        this.scrollingId = window.requestAnimationFrame(this.isTouching)
       } else {
-        this.touchStart();
-        console.log("Cancelling animations");
-        window.cancelAnimationFrame(this.scrollingId);
-        window.cancelAnimationFrame(this.stopId);
+        window.cancelAnimationFrame(this.scrollingId)
+      }
+    },
+    endTouch () {
+      this.$emit('ontouch', false, this.iterant.startLeftDist)
+      this.$emit('onscroll', false)
+      this.startTime = performance.now()
+      this.stopId = window.requestAnimationFrame(this.checkIsScrolling)
+    },
+    getElCoords () {
+      const rect = this.$el.getBoundingClientRect()
+      this.left = rect.left
+      this.elMidpoint = rect.width / 2 + rect.left
+      this.iterant.distFromParentCenter = this.elMidpoint - this.parentMidPoint
+    },
+    checkIsScrolling (timestamp) {
+      const elLeft = this.$el.getBoundingClientRect().left
+      const newTimestamp = timestamp || new Date().getTime()
+      const runtime = newTimestamp - this.startTime
+      if (this.lastScrollLeft !== elLeft || runtime < this.duration) {
+        this.lastScrollLeft = elLeft
+        this.touchStart()
+        this.stopId = window.requestAnimationFrame(this.checkIsScrolling)
+      } else {
+        this.touchStart()
+        window.cancelAnimationFrame(this.stopId)
       }
     }
   },
 
   computed: {
-    iterantStyle() {
+    iterantStyle () {
       const percFromParent =
-        Math.abs(this.elMidpoint - this.parentMidPoint) / this.parentMidPoint;
-      if (typeof percFromParent === "number") {
+        Math.abs(this.elMidpoint - this.parentMidPoint) / this.parentMidPoint
+      if (typeof percFromParent === 'number') {
         return {
           height: `${Math.max(1.0 - percFromParent * 0.4, 0.4) * 100}vh`,
           opacity: `${Math.max(1.45 - percFromParent, 0.2)}`
-        };
+        }
       }
 
-      return null;
+      return null
     }
   },
 
-  mounted() {
-    this.iterant.startLeftDist = this.$el.offsetLeft;
-    this.$el.addEventListener("touchstart", this.onTouchWrapper, false);
-    this.$el.addEventListener("touchend", this.endTouch, false);
-    this.getElCoords();
+  mounted () {
+    this.iterant.startLeftDist = this.$el.offsetLeft
+    this.$el.addEventListener('touchstart', this.onTouchWrapper, false)
+    this.$el.addEventListener('touchend', this.endTouch, false)
+    this.getElCoords()
   },
 
-  destroyed() {
-    this.$el.removeEventListener("touchstart", this.onTouchWrapper, false);
-    this.$el.removeEventListener("touchend", this.endTouch, false);
+  destroyed () {
+    this.$el.removeEventListener('touchstart', this.onTouchWrapper, false)
+    this.$el.removeEventListener('touchend', this.endTouch, false)
   },
 
   watch: {
-    isTouch() {
-      this.getElCoords();
+    isTouch () {
+      this.getElCoords()
     },
-    isScrolling() {
+    isScrolling () {
       if (this.isScrolling) {
-        this.isTouching();
+        this.scrollingId = window.requestAnimationFrame(this.isTouching)
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
