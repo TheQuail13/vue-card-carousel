@@ -130,10 +130,12 @@ export default {
 .c-main {
   position: relative;
   background: white;
+  display: flex;
+  flex-direction: column;
   box-shadow: 2px 2px 15px 1px;
   min-width: 75vw;
   margin: auto 0.85em auto 0.85em;
-  padding: 3em 0 3em 0;
+  // padding: 3em 0 3em 0;
   border-radius: 1.15em;
   top: 0;
   max-height: 70%;
@@ -142,6 +144,7 @@ export default {
 
 .c-main-header {
   height: 10%;
+  padding: 2em;
 }
 
 .c-main-body {
@@ -150,5 +153,6 @@ export default {
 
 .c-main-footer {
   height: 10%;
+  padding: 2em;
 }
 </style>
