@@ -15,9 +15,15 @@
       @ontouch="handleTouch"
       @onscroll="handleScroll"
     >
-      <template v-slot:header><slot name="header"></slot></template>
-      <template><slot :iterantProp="el"></slot></template>
-      <template v-slot:footer><slot name="footer"></slot></template>
+      <template v-slot:header>
+        <slot name="header"></slot>
+      </template>
+      <template>
+        <slot :iterantProp="el"></slot>
+      </template>
+      <template v-slot:footer>
+        <slot name="footer"></slot>
+      </template>
     </Iteration>
   </div>
 </template>
@@ -68,7 +74,7 @@ export default {
       isTouch: false,
       fullWidth: 0,
       quarterWidth: 0,
-      elClosestToMiddle: null,
+      elClosestToMiddle: { cMainId: 0 },
       isScrolling: false
     };
   },
