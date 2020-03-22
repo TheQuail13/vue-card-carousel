@@ -7,6 +7,8 @@
       :parent-mid-point="midpoint"
       :is-touch="isTouch"
       :is-scrolling="isScrolling"
+      :show-header="showHeader"
+      :show-footer="showFooter"
       :header-color="headerColor"
       :body-color="bodyColor"
       :footer-color="footerColor"
@@ -32,6 +34,16 @@ export default {
     elements: {
       type: Array,
       required: true
+    },
+    showHeader: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    showFooter: {
+      type: Boolean,
+      required: false,
+      default: true
     },
     headerColor: {
       type: String,

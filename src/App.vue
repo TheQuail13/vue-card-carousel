@@ -2,7 +2,9 @@
   <div id="app">
     <HelloWorld
       :elements="elements"
-      header-color="#17a2b8"
+      :show-header="true"
+      :show-footer="true"
+      header-color="#28a745"
       footer-color="#17a2b8"
     >
       <template v-slot:header><strong>Header</strong></template>

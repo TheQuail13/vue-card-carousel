@@ -1,10 +1,10 @@
 <template>
   <div :class="['c-main']" :style="iterantStyle">
-    <div :style="headerStyle" class="c-main-header">
+    <div v-if="showHeader" :style="headerStyle" class="c-main-header">
       <slot name="header"></slot>
     </div>
     <div :style="bodyStyle" class="c-main-body"><slot></slot></div>
-    <div :style="footerStyle" class="c-main-footer">
+    <div v-if="showFooter" :style="footerStyle" class="c-main-footer">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -32,10 +32,21 @@ export default {
       required: true,
       default: false
     },
+    showHeader: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    showFooter: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
     headerColor: {
       type: String,
       required: false
     },
+
     bodyColor: {
       type: String,
       required: false
@@ -117,19 +128,19 @@ export default {
     },
     headerStyle() {
       if (this.headerColor) {
-        return { "background-color": this.headerColor };
+        return { "background-color": `${this.headerColor} !important` };
       }
       return null;
     },
     bodyStyle() {
       if (this.bodyColor) {
-        return { "background-color": this.bodyColor };
+        return { "background-color": `${this.bodyColor} !important` };
       }
       return null;
     },
     footerStyle() {
       if (this.footerColor) {
-        return { "background-color": this.footerColor };
+        return { "background-color": `${this.footerColor} !important` };
       }
       return null;
     }
@@ -182,7 +193,7 @@ export default {
 
 .c-main-body {
   overflow-y: scroll;
-  height: 75%;
+  height: 100%;
   margin: 0.75em;
 }
 
