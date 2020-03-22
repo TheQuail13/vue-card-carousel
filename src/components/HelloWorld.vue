@@ -11,9 +11,33 @@
       @onscroll="handleScroll"
     >
       <template v-slot:header>
-        Parent
+        Header
       </template>
-      Hello from the Parent
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <!-- <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div>
+      <div>Hello from the Parent</div> -->
       <template v-slot:footer>
         Footer
       </template>
