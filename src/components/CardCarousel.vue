@@ -26,6 +26,8 @@
 import Iteration from "./Iteration";
 
 export default {
+  name: "CardCarousel",
+
   components: {
     Iteration
   },

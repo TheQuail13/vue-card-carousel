@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HelloWorld
+    <CardCarousel
       :elements="elements"
       :show-header="true"
       :show-footer="true"
@@ -14,17 +14,17 @@
         </div>
       </template>
       <template v-slot:footer><strong>Footer</strong></template>
-    </HelloWorld>
+    </CardCarousel>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import CardCarousel from "./components/CardCarousel.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    CardCarousel
   },
   data() {
     return {

@@ -197,6 +197,10 @@ export default {
   margin: 0.75em;
 }
 
+.c-main-body::-webkit-scrollbar {
+  display: none;
+}
+
 .c-main-footer {
   border-radius: 0 0 1.15em 1.15em;
   padding: 1.5em;
