@@ -14,7 +14,7 @@
       @onscroll="handleScroll"
     >
       <template v-slot:header><slot name="header"></slot></template>
-      <template><slot></slot></template>
+      <template><slot :iterantProp="el"></slot></template>
       <template v-slot:footer><slot name="footer"></slot></template>
     </Iteration>
   </div>
