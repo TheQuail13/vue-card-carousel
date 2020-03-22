@@ -12,6 +12,8 @@
 
 <script>
 export default {
+  name: "Iteration",
+
   props: {
     iterant: {
       type: Object,

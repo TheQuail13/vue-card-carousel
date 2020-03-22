@@ -1,9 +1,9 @@
 <template>
   <div class="c-backdrop">
     <Iteration
-      v-for="(el, elIdx) in listToIterate"
-      :iterant="el"
-      :key="elIdx"
+      v-for="(elem, elemIdx) in listToIterate"
+      :iterant="elem"
+      :key="elemIdx"
       :parent-mid-point="midpoint"
       :is-touch="isTouch"
       :is-scrolling="isScrolling"
@@ -19,7 +19,7 @@
         <slot name="header"></slot>
       </template>
       <template>
-        <slot :iterantProp="el"></slot>
+        <slot :iterantProp="elem"></slot>
       </template>
       <template v-slot:footer>
         <slot name="footer"></slot>

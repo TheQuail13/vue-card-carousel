@@ -9,7 +9,7 @@
     >
       <template v-slot:header><strong>Header</strong></template>
       <template v-slot:default="slotProps">
-        <div v-for="n in 25" :key="n">
+        <div v-for="n in 15" :key="n">
           {{ slotProps.iterantProp.cMainId }}. Hello from the Parent
         </div>
       </template>
