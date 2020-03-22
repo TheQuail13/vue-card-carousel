@@ -7,6 +7,9 @@
       :parent-mid-point="midpoint"
       :is-touch="isTouch"
       :is-scrolling="isScrolling"
+      :header-color="headerColor"
+      :body-color="bodyColor"
+      :footer-color="footerColor"
       @ontouch="handleTouch"
       @onscroll="handleScroll"
     >
@@ -46,7 +49,7 @@
 </template>
 
 <script>
-import Iteration from './Iteration'
+import Iteration from "./Iteration";
 
 export default {
   components: {
@@ -57,10 +60,22 @@ export default {
     elements: {
       type: Array,
       required: true
+    },
+    headerColor: {
+      type: String,
+      required: false
+    },
+    bodyColor: {
+      type: String,
+      required: false
+    },
+    footerColor: {
+      type: String,
+      required: false
     }
   },
 
-  data () {
+  data() {
     return {
       listToIterate: [],
       midpoint: 0,
@@ -69,32 +84,32 @@ export default {
       quarterWidth: 0,
       elClosestToMiddle: null,
       isScrolling: false
-    }
+    };
   },
 
   methods: {
-    setParentCoords () {
-      const rect = this.$el.getBoundingClientRect()
-      this.midpoint = rect.width / 2 + rect.left
-      this.fullWidth = window.screen.width
-      this.quarterWidth = window.screen.width * 0.25
+    setParentCoords() {
+      const rect = this.$el.getBoundingClientRect();
+      this.midpoint = rect.width / 2 + rect.left;
+      this.fullWidth = window.screen.width;
+      this.quarterWidth = window.screen.width * 0.25;
     },
-    handleTouch (bool, leftStart) {
-      this.isTouch = !this.isTouch
+    handleTouch(bool, leftStart) {
+      this.isTouch = !this.isTouch;
       if (!bool) {
-        this.elClosestToMiddle = this.getClosestElToMiddle()
+        this.elClosestToMiddle = this.getClosestElToMiddle();
         const opt = {
           top: 0,
           left: this.elClosestToMiddle.distFromParentCenter,
-          behavior: 'smooth'
-        }
-        this.$el.scrollBy(opt)
+          behavior: "smooth"
+        };
+        this.$el.scrollBy(opt);
       }
     },
-    handleScroll (isScrolling) {
-      this.isScrolling = isScrolling
+    handleScroll(isScrolling) {
+      this.isScrolling = isScrolling;
     },
-    getClosestElToMiddle () {
+    getClosestElToMiddle() {
       if (this.listToIterate.length > 0) {
         return this.listToIterate.reduce(
           (acc, curr) =>
@@ -103,30 +118,30 @@ export default {
               ? acc
               : curr,
           {}
-        )
+        );
       }
-      return {}
+      return {};
     }
   },
 
-  mounted () {
-    window.addEventListener('resize', this.setParentCoords, false)
-    this.setParentCoords()
+  mounted() {
+    window.addEventListener("resize", this.setParentCoords, false);
+    this.setParentCoords();
   },
 
-  destroyed () {
-    window.removeEventListener('resize', this.setParentCoords, false)
+  destroyed() {
+    window.removeEventListener("resize", this.setParentCoords, false);
   },
 
-  created () {
+  created() {
     this.listToIterate = this.elements.map((row, index) => ({
       ...row,
       cMainId: index,
       distFromParentCenter: 0,
       startLeftDist: 0
-    }))
+    }));
   }
-}
+};
 </script>
 
 <style scoped lang="scss">

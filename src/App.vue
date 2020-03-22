@@ -1,23 +1,27 @@
 <template>
   <div id="app">
-    <HelloWorld :elements="elements" />
+    <HelloWorld
+      :elements="elements"
+      header-color="#17a2b8"
+      footer-color="#17a2b8"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     HelloWorld
   },
-  data () {
+  data() {
     return {
       elements: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
-    }
+    };
   }
-}
+};
 </script>
 
 <style lang="scss">
