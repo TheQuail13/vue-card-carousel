@@ -183,7 +183,7 @@ export default {
 .c-main-body {
   overflow-y: scroll;
   height: 75%;
-  padding: 1em;
+  margin: 0.75em;
 }
 
 .c-main-footer {

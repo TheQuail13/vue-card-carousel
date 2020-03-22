@@ -4,7 +4,11 @@
       :elements="elements"
       header-color="#17a2b8"
       footer-color="#17a2b8"
-    />
+    >
+      <template v-slot:header><strong>Header</strong></template>
+      <div v-for="n in 25" :key="n">Hello from the Parent</div>
+      <template v-slot:footer><strong>Footer</strong></template>
+    </HelloWorld>
   </div>
 </template>
 

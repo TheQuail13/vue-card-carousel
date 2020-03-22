@@ -13,37 +13,9 @@
       @ontouch="handleTouch"
       @onscroll="handleScroll"
     >
-      <template v-slot:header>
-        Header
-      </template>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <!-- <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div>
-      <div>Hello from the Parent</div> -->
-      <template v-slot:footer>
-        Footer
-      </template>
+      <template v-slot:header><slot name="header"></slot></template>
+      <template><slot></slot></template>
+      <template v-slot:footer><slot name="footer"></slot></template>
     </Iteration>
   </div>
 </template>
