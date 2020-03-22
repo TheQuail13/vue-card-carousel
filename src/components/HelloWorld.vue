@@ -49,6 +49,12 @@ export default {
   },
 
   methods: {
+    setParentCoords() {
+      const rect = this.$el.getBoundingClientRect();
+      this.midpoint = rect.width / 2 + rect.left;
+      this.fullWidth = window.screen.width;
+      this.quarterWidth = window.screen.width * 0.25;
+    },
     handleTouch(bool, leftStart) {
       this.isTouch = !this.isTouch;
       if (!bool) {
@@ -80,10 +86,12 @@ export default {
   },
 
   mounted() {
-    const rect = this.$el.getBoundingClientRect();
-    this.midpoint = rect.width / 2 + rect.left;
-    this.fullWidth = window.screen.width;
-    this.quarterWidth = window.screen.width * 0.25;
+    window.addEventListener("resize", this.setParentCoords, false);
+    this.setParentCoords();
+  },
+
+  destroyed() {
+    window.removeEventListener("resize", this.setParentCoords, false);
   },
 
   created() {
