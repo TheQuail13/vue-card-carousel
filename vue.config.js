@@ -8,5 +8,6 @@ module.exports = {
         ...options,
         emitWarning: true
       }))
-  }
+  },
+  css: { extract: false }
 }

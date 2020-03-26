@@ -2,10 +2,11 @@
   "name": "vue-card-carousel",
   "version": "0.1.0",
   "private": true,
+  "main": "./dist/vue-card-carousel.common.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-	"build-lib": "vue-cli-service build --target lib --name vue-card-carousel src/main.js",
+    "build-lib": "vue-cli-service build --target lib --name vue-card-carousel src/main.js",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
