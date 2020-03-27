@@ -41,7 +41,8 @@ export default {
   props: {
     elements: {
       type: Array,
-      required: true
+      required: true,
+      default: () => []
     },
     showHeader: {
       type: Boolean,

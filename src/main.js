@@ -1,3 +1,3 @@
 import VueCardCarousel from './components/VueCardCarousel.vue'
 
-export default VueCardCarousel;
+export default VueCardCarousel
