@@ -48,7 +48,6 @@ export default {
       type: String,
       required: false
     },
-
     bodyColor: {
       type: String,
       required: false
@@ -117,8 +116,12 @@ export default {
 
   computed: {
     iterantStyle () {
-      const percFromParent =
-        Math.abs(this.elMidpoint - this.parentMidPoint) / this.parentMidPoint
+      let percFromParent = 0
+      if (this.parentMidPoint !== 0) {
+        percFromParent =
+          Math.abs(this.elMidpoint - this.parentMidPoint) / this.parentMidPoint
+      }
+
       if (typeof percFromParent === 'number') {
         return {
           height: `${Math.max(1.0 - percFromParent * 0.35, 0.4) * 100}vh`,
