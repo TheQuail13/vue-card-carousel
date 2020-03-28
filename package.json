@@ -1,8 +1,8 @@
 {
   "name": "vue-card-carousel",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
   "main": "./dist/vue-card-carousel.common.js",
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -34,5 +34,12 @@
     "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "files": [
+    "dist/*",
+    "src/*",
+    "public/*",
+    "*.json",
+    "*.js"
+  ]
 }
