@@ -1,9 +1,26 @@
 {
   "name": "vue-card-carousel",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "./dist/vue-card-carousel.common.js",
   "license": "MIT",
+  "private": false,
   "description": "A flexible, touch-focused wrapper element that displays cards in a carousel-like manner.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheQuail13/vue-card-carousel.git"
+  },
+  "homepage": "https://github.com/TheQuail13/vue-card-carousel#readme",
+  "bugs": {
+    "url": "https://github.com/TheQuail13/vue-card-carousel/issues"
+  },
+  "keywords": [
+    "vue",
+    "cards",
+    "carousel",
+    "slide",
+    "swipe"
+  ],
+  "author": "doug@thierjung.net",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
