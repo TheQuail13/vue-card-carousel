@@ -5,7 +5,7 @@
 Via NPM:
 
 ```
-npm i vue-glide-js
+npm i vue-card-carousel
 ```
 
 ## Usage
