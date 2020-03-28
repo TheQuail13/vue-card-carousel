@@ -3,7 +3,9 @@
     <div v-if="showHeader" :style="headerStyle" class="c-main-header">
       <slot name="header"></slot>
     </div>
-    <div :style="bodyStyle" class="c-main-body"><slot></slot></div>
+    <div :style="bodyStyle" class="c-main-body">
+      <slot></slot>
+    </div>
     <div v-if="showFooter" :style="footerStyle" class="c-main-footer">
       <slot name="footer"></slot>
     </div>
@@ -12,7 +14,7 @@
 
 <script>
 export default {
-  name: 'Iteration',
+  name: "Iteration",
 
   props: {
     iterant: {
@@ -58,7 +60,7 @@ export default {
     }
   },
 
-  data () {
+  data() {
     return {
       left: 0,
       elMidpoint: 0,
@@ -67,113 +69,113 @@ export default {
       stopId: 0,
       startTime: null,
       duration: 1000
-    }
+    };
   },
 
   methods: {
-    onTouchWrapper () {
-      this.$emit('onscroll', true)
-      this.touchStart()
+    onTouchWrapper() {
+      this.$emit("onscroll", true);
+      this.touchStart();
     },
-    touchStart () {
-      this.$emit('ontouch', true)
-      this.getElCoords()
+    touchStart() {
+      this.$emit("ontouch", true);
+      this.getElCoords();
     },
-    isTouching () {
-      this.getElCoords()
+    isTouching() {
+      this.getElCoords();
       if (this.isScrolling) {
-        this.scrollingId = window.requestAnimationFrame(this.isTouching)
+        this.scrollingId = window.requestAnimationFrame(this.isTouching);
       } else {
-        window.cancelAnimationFrame(this.scrollingId)
+        window.cancelAnimationFrame(this.scrollingId);
       }
     },
-    endTouch () {
-      this.$emit('ontouch', false, this.iterant.startLeftDist)
-      this.$emit('onscroll', false)
-      this.startTime = performance.now()
-      this.stopId = window.requestAnimationFrame(this.checkIsScrolling)
+    endTouch() {
+      this.$emit("ontouch", false, this.iterant.startLeftDist);
+      this.$emit("onscroll", false);
+      this.startTime = performance.now();
+      this.stopId = window.requestAnimationFrame(this.checkIsScrolling);
     },
-    getElCoords () {
-      const rect = this.$el.getBoundingClientRect()
-      this.left = rect.left
-      this.elMidpoint = rect.width / 2 + rect.left
-      this.iterant.distFromParentCenter = this.elMidpoint - this.parentMidPoint
+    getElCoords() {
+      const rect = this.$el.getBoundingClientRect();
+      this.left = rect.left;
+      this.elMidpoint = rect.width / 2 + rect.left;
+      this.iterant.distFromParentCenter = this.elMidpoint - this.parentMidPoint;
     },
-    checkIsScrolling (timestamp) {
-      const elLeft = this.$el.getBoundingClientRect().left
-      const newTimestamp = timestamp || new Date().getTime()
-      const runtime = newTimestamp - this.startTime
+    checkIsScrolling(timestamp) {
+      const elLeft = this.$el.getBoundingClientRect().left;
+      const newTimestamp = timestamp || new Date().getTime();
+      const runtime = newTimestamp - this.startTime;
       if (this.lastScrollLeft !== elLeft || runtime < this.duration) {
-        this.lastScrollLeft = elLeft
-        this.touchStart()
-        this.stopId = window.requestAnimationFrame(this.checkIsScrolling)
+        this.lastScrollLeft = elLeft;
+        this.touchStart();
+        this.stopId = window.requestAnimationFrame(this.checkIsScrolling);
       } else {
-        this.touchStart()
-        window.cancelAnimationFrame(this.stopId)
+        this.touchStart();
+        window.cancelAnimationFrame(this.stopId);
       }
     }
   },
 
   computed: {
-    iterantStyle () {
-      let percFromParent = 0
-      if (this.parentMidPoint !== 0) {
-        percFromParent =
-          Math.abs(this.elMidpoint - this.parentMidPoint) / this.parentMidPoint
-      }
+    iterantStyle() {
+      const percFromParent =
+        this.parentMidPoint !== 0
+          ? Math.abs(this.elMidpoint - this.parentMidPoint) /
+            this.parentMidPoint
+          : 0;
 
-      if (typeof percFromParent === 'number') {
+      if (typeof percFromParent === "number") {
         return {
           height: `${Math.max(1.0 - percFromParent * 0.35, 0.4) * 100}vh`,
           opacity: `${Math.max(1.45 - percFromParent, 0.2)}`
-        }
+        };
       }
 
-      return null
+      return null;
     },
-    headerStyle () {
+    headerStyle() {
       if (this.headerColor) {
-        return { 'background-color': `${this.headerColor} !important` }
+        return { "background-color": `${this.headerColor} !important` };
       }
-      return null
+      return null;
     },
-    bodyStyle () {
+    bodyStyle() {
       if (this.bodyColor) {
-        return { 'background-color': `${this.bodyColor} !important` }
+        return { "background-color": `${this.bodyColor} !important` };
       }
-      return null
+      return null;
     },
-    footerStyle () {
+    footerStyle() {
       if (this.footerColor) {
-        return { 'background-color': `${this.footerColor} !important` }
+        return { "background-color": `${this.footerColor} !important` };
       }
-      return null
+      return null;
     }
   },
 
-  mounted () {
-    this.iterant.startLeftDist = this.$el.offsetLeft
-    this.$el.addEventListener('touchstart', this.onTouchWrapper, false)
-    this.$el.addEventListener('touchend', this.endTouch, false)
-    this.getElCoords()
+  mounted() {
+    this.iterant.startLeftDist = this.$el.offsetLeft;
+    this.$el.addEventListener("touchstart", this.onTouchWrapper, false);
+    this.$el.addEventListener("touchend", this.endTouch, false);
+    this.getElCoords();
   },
 
-  destroyed () {
-    this.$el.removeEventListener('touchstart', this.onTouchWrapper, false)
-    this.$el.removeEventListener('touchend', this.endTouch, false)
+  destroyed() {
+    this.$el.removeEventListener("touchstart", this.onTouchWrapper, false);
+    this.$el.removeEventListener("touchend", this.endTouch, false);
   },
 
   watch: {
-    isTouch () {
-      this.getElCoords()
+    isTouch() {
+      this.getElCoords();
     },
-    isScrolling () {
+    isScrolling() {
       if (this.isScrolling) {
-        this.scrollingId = window.requestAnimationFrame(this.isTouching)
+        this.scrollingId = window.requestAnimationFrame(this.isTouching);
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

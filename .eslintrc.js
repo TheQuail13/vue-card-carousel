@@ -5,7 +5,9 @@ module.exports = {
   },
   extends: [
     'plugin:vue/essential',
-    '@vue/standard'
+    '@vue/standard',
+    'prettier',
+    'prettier/vue'
   ],
   parserOptions: {
     parser: 'babel-eslint'
@@ -24,5 +26,8 @@ module.exports = {
         mocha: true
       }
     }
+  ],
+  "plugins": [
+    "prettier"
   ]
 }

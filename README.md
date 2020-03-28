@@ -114,7 +114,7 @@ export default {
 
 |  Property   |  Type   | Default | Required | Description                                                                                |
 | :---------: | :-----: | :-----: | :------: | :----------------------------------------------------------------------------------------- |
-|  elements   |  Array  |         |   true   | List of items to used to generate the main cards                                           |
+|  elements   |  Array  |         |   true   | List of items to used to generate the main card elements                                   |
 | showHeader  | Boolean |  true   |  false   | Displays or hides the header                                                               |
 | showFooter  | Boolean |  true   |  false   | Displays or hides the footer                                                               |
 | headerColor | String  |         |  false   | Sets the background color for the header. Accepts any valid CSS color. E.g. Hex, RGB, etc. |
