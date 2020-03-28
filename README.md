@@ -1,35 +1,40 @@
 # vue-card-carousel
 
-## Project setup
+## Installation
+
+Via NPM:
 
 ```
-npm i vue-card-carousel
+npm i vue-glide-js
 ```
 
-### Compiles and hot-reloads for development
+## Usage
+
+You can choose to either install globally or locally, as desired:
+
+Globally:
 
 ```
-npm run serve
+import Vue from 'vue'
+import App from './App.vue'
+import VueCardCarousel from "vue-card-carousel";
+
+Vue.use(VueCardCarousel)
+
+new Vue({
+  el: '#app',
+  render: h => h(App)
+})
 ```
 
-### Compiles and minifies for production
+or locally to a component:
 
 ```
-npm run build
+import { VueCardCarousel } from "vue-card-carousel";
+
+export default {
+    components: {
+        VueCardCarousel
+    }
+}
 ```
-
-### Run your unit tests
-
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).

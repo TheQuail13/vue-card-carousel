@@ -32,7 +32,7 @@
 import Iteration from './Iteration'
 
 export default {
-  name: 'CardCarousel',
+  name: 'VueCardCarousel',
 
   components: {
     Iteration

@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "main": "./dist/vue-card-carousel.common.js",
   "license": "MIT",
+  "description": "A flexible, touch-focused wrapper element that displays cards in a carousel-like manner.",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
