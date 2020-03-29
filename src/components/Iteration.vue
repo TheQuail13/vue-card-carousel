@@ -1,12 +1,20 @@
 <template>
   <div :class="['c-main']" :style="iterantStyle">
-    <div v-if="showHeader" :style="headerStyle" class="c-main-header">
+    <div
+      v-if="headerOptions.isVisible"
+      :style="headerStyle"
+      class="c-main-header"
+    >
       <slot name="header"></slot>
     </div>
     <div :style="bodyStyle" class="c-main-body">
       <slot></slot>
     </div>
-    <div v-if="showFooter" :style="footerStyle" class="c-main-footer">
+    <div
+      v-if="footerOptions.isVisible"
+      :style="footerStyle"
+      class="c-main-footer"
+    >
       <slot name="footer"></slot>
     </div>
   </div>
@@ -36,27 +44,17 @@ export default {
       required: true,
       default: false
     },
-    showHeader: {
-      type: Boolean,
-      required: false,
-      default: true
+    headerOptions: {
+      type: Object,
+      required: true
     },
-    showFooter: {
-      type: Boolean,
-      required: false,
-      default: true
+    bodyOptions: {
+      type: Object,
+      required: true
     },
-    headerColor: {
-      type: String,
-      required: false
-    },
-    bodyColor: {
-      type: String,
-      required: false
-    },
-    footerColor: {
-      type: String,
-      required: false
+    footerOptions: {
+      type: Object,
+      required: true
     }
   },
 
@@ -134,20 +132,27 @@ export default {
       return null;
     },
     headerStyle() {
-      if (this.headerColor) {
-        return { "background-color": `${this.headerColor} !important` };
+      if (this.headerOptions) {
+        return {
+          "background-color": `${this.headerOptions.backgroundColor} !important`
+        };
       }
       return null;
     },
     bodyStyle() {
-      if (this.bodyColor) {
-        return { "background-color": `${this.bodyColor} !important` };
+      if (this.bodyOptions) {
+        return {
+          "background-color": `${this.bodyOptions.backgroundColor} !important`,
+          "border-color": `${this.bodyOptions.borderColor} !important`
+        };
       }
       return null;
     },
     footerStyle() {
-      if (this.footerColor) {
-        return { "background-color": `${this.footerColor} !important` };
+      if (this.footerOptions) {
+        return {
+          "background-color": `${this.footerOptions.backgroundColor} !important`
+        };
       }
       return null;
     }

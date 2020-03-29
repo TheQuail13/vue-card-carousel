@@ -8,7 +8,7 @@
 
 _Please note this is in active development and subject to change until it is out of alpha versions._
 
-## Installation
+# Installation
 
 Via NPM:
 
@@ -45,7 +45,7 @@ export default {
 }
 ```
 
-## Usage
+# Usage
 
 Most basic usage would be adding the component and passing in the array of items you want displayed:
 
@@ -110,13 +110,32 @@ export default {
 </script>
 ```
 
-## Props
+# Props
 
-|  Property   |  Type   | Default | Required | Description                                                                                |
-| :---------: | :-----: | :-----: | :------: | :----------------------------------------------------------------------------------------- |
-|  elements   |  Array  |         |   true   | List of items to used to generate the main card elements                                   |
-| showHeader  | Boolean |  true   |  false   | Displays or hides the header                                                               |
-| showFooter  | Boolean |  true   |  false   | Displays or hides the footer                                                               |
-| headerColor | String  |         |  false   | Sets the background color for the header. Accepts any valid CSS color. E.g. Hex, RGB, etc. |
-|  bodyColor  | String  |         |  false   | Sets the background color for the body. Accepts any valid CSS color. E.g. Hex, RGB, etc.   |
-| footerColor | String  |         |  false   | Sets the background color for the footer. Accepts any valid CSS color. E.g. Hex, RGB, etc. |
+|   Property    |  Type  | Default | Required | Description                                              |
+| :-----------: | :----: | :-----: | :------: | :------------------------------------------------------- |
+|   elements    | Array  |         |   true   | List of items to used to generate the main card elements |
+| headerOptions | Object |         |  false   | See details below for available properties.              |
+|  bodyOptions  | Object |         |  false   | See details below for available properties.              |
+| footerOptions | Object |         |  false   | See details below for available properties.              |
+
+## headerOptions
+
+|    Property     |  Type   | Default | Required | Description                                      |
+| :-------------: | :-----: | :-----: | :------: | :----------------------------------------------- |
+|    isVisible    | Boolean |         |   true   | Controls whether or not the header is displayed. |
+| backgroundColor | String  |         |  false   | Any valid CSS color.                             |
+
+## bodyOptions
+
+|    Property     |  Type  | Default | Required | Description          |
+| :-------------: | :----: | :-----: | :------: | :------------------- |
+| backgroundColor | String |         |  false   | Any valid CSS color. |
+|   borderColor   | String |         |  false   | Any valid CSS color. |
+
+## footerOptions
+
+|    Property     |  Type   | Default | Required | Description                                      |
+| :-------------: | :-----: | :-----: | :------: | :----------------------------------------------- |
+|    isVisible    | Boolean |         |   true   | Controls whether or not the footer is displayed. |
+| backgroundColor | String  |         |  false   | Any valid CSS color.                             |
