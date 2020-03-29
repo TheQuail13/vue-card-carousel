@@ -14,13 +14,13 @@
       @onscroll="handleScroll"
     >
       <template v-slot:header>
-        <slot name="header"></slot>
+        <slot :headerProp="elem" name="header"></slot>
       </template>
       <template>
-        <slot :iterantProp="elem"></slot>
+        <slot :bodyProp="elem"></slot>
       </template>
       <template v-slot:footer>
-        <slot name="footer"></slot>
+        <slot :footerProp="elem" name="footer"></slot>
       </template>
     </Iteration>
   </div>
