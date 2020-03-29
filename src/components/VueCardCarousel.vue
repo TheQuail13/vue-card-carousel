@@ -1,8 +1,8 @@
 <template>
   <div class="c-backdrop">
     <Iteration
-      v-for="(elem, elemIdx) in listToIterate"
-      :iterant="elem"
+      v-for="(element, elemIdx) in listToIterate"
+      :iterant="element"
       :key="elemIdx"
       :parent-mid-point="midpoint"
       :is-touch="isTouch"
@@ -14,13 +14,13 @@
       @onscroll="handleScroll"
     >
       <template v-slot:header>
-        <slot :headerProp="elem" name="header"></slot>
+        <slot :headerProp="element" name="header"></slot>
       </template>
       <template>
-        <slot :bodyProp="elem"></slot>
+        <slot :bodyProp="element"></slot>
       </template>
       <template v-slot:footer>
-        <slot :footerProp="elem" name="footer"></slot>
+        <slot :footerProp="element" name="footer"></slot>
       </template>
     </Iteration>
   </div>
@@ -172,12 +172,10 @@ export default {
   height: 100%;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
 .c-backdrop::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE and Edge */
 .c-backdrop {
   -ms-overflow-style: none;
 }
@@ -188,7 +186,7 @@ export default {
 }
 
 .c-main:first-child {
-  margin-left: 3rem;
+  margin-left: 13%;
 }
 
 // necessary for overflow not displaying right-padding
@@ -197,8 +195,8 @@ export default {
   content: "";
   display: block;
   position: absolute;
-  right: -3rem;
-  width: 3rem;
+  right: -15%;
+  width: 13%;
   height: 1px;
 }
 </style>

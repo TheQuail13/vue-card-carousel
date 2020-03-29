@@ -1,5 +1,5 @@
 <template>
-  <div :class="['c-main']" :style="iterantStyle">
+  <div class="c-main" :style="iterantStyle">
     <div
       v-if="headerOptions.isVisible"
       :style="headerStyle"
@@ -194,7 +194,7 @@ export default {
   margin: auto 0.85em auto 0.85em;
   border-radius: 1.15em;
   top: 0;
-  max-height: 70%;
+  max-height: 80%;
   transition: height;
 }
 
@@ -211,6 +211,10 @@ export default {
 
 .c-main-body::-webkit-scrollbar {
   display: none;
+}
+
+.c-main-body {
+  -ms-overflow-style: none;
 }
 
 .c-main-footer {
