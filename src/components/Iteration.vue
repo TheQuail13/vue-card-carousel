@@ -142,8 +142,7 @@ export default {
     bodyStyle() {
       if (this.bodyOptions) {
         return {
-          "background-color": `${this.bodyOptions.backgroundColor} !important`,
-          "border-color": `${this.bodyOptions.borderColor} !important`
+          "background-color": `${this.bodyOptions.backgroundColor} !important`
         };
       }
       return null;

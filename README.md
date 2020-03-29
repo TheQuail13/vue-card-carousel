@@ -10,13 +10,11 @@ _Please note this is in active development and subject to change until it is out
 
 # Installation
 
-Via NPM:
-
 ```
 npm i vue-card-carousel
 ```
 
-You can choose to either install globally or locally, as desired:
+You can choose to install either globally or locally:
 
 Globally:
 
@@ -52,7 +50,7 @@ Most basic usage would be adding the component and passing in the array of items
 ```
 <template>
   <div id="app">
-    <VueCardCarousel :elements="elements"></VueCardCarousel>
+    <VueCardCarousel :elements="listOfTodos"></VueCardCarousel>
   </div>
 </template>
 
@@ -65,7 +63,7 @@ export default {
   },
   data() {
     return {
-      elements: [{ id: 1 }, { id: 2 }, { id: 3 }]
+      listOfTodos: [{ id: 1 }, { id: 2 }, { id: 3 }]
     };
   }
 };
@@ -78,18 +76,21 @@ However this will be relatively uninteresting. To make the most use of this comp
 <template>
   <div id="app">
     <VueCardCarousel
-      :elements="elements"
-      :show-footer="false"
-      header-color="#28a745"
-      footer-color="#17a2b8"
+      :elements="listOfTodos"
+      :header-options="headerOpt"
+      :footer-options="footerOpt"
     >
-      <template v-slot:header><strong>Header</strong></template>
+      <template v-slot:header="slotProps"
+        ><strong>Header. Id: {{ slotProps.headerProp.id }}</strong></template
+      >
       <template v-slot:default="slotProps">
         <div v-for="n in 5" :key="n">
-          {{ slotProps.iterantProp.id }}. Hello from the Parent
+          {{ slotProps.bodyProp.cMainId }}. Hello from the Parent
         </div>
       </template>
-      <template v-slot:footer><strong>Footer</strong></template>
+      <template v-slot:footer="slotProps"
+        ><strong>Footer. Id: {{ slotProps.footerProp.id }}</strong></template
+      >
     </VueCardCarousel>
   </div>
 </template>
@@ -103,7 +104,9 @@ export default {
   },
   data() {
     return {
-      elements: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }]
+      listOfTodos: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
+      headerOpt: { isVisible: true, backgroundColor: "green" },
+      footerOpt: { isVisible: false }
     };
   }
 };
@@ -112,30 +115,45 @@ export default {
 
 # Props
 
-|   Property    |  Type  | Default | Required | Description                                              |
-| :-----------: | :----: | :-----: | :------: | :------------------------------------------------------- |
-|   elements    | Array  |         |   true   | List of items to used to generate the main card elements |
-| headerOptions | Object |         |  false   | See details below for available properties.              |
-|  bodyOptions  | Object |         |  false   | See details below for available properties.              |
-| footerOptions | Object |         |  false   | See details below for available properties.              |
+|    Property     |  Type  | Default | Required | Description                                             |
+| :-------------: | :----: | :-----: | :------: | :------------------------------------------------------ |
+|   `elements`    | Array  |         |   true   | List of items to used to generate the scrollable cards. |
+| `headerOptions` | Object |         |  false   | See details below for available properties.             |
+|  `bodyOptions`  | Object |         |  false   | See details below for available properties.             |
+| `footerOptions` | Object |         |  false   | See details below for available properties.             |
 
 ## headerOptions
 
-|    Property     |  Type   | Default | Required | Description                                      |
-| :-------------: | :-----: | :-----: | :------: | :----------------------------------------------- |
-|    isVisible    | Boolean |         |   true   | Controls whether or not the header is displayed. |
-| backgroundColor | String  |         |  false   | Any valid CSS color.                             |
+|     Property      |  Type   | Default | Required | Description                                      |
+| :---------------: | :-----: | :-----: | :------: | :----------------------------------------------- |
+|    `isVisible`    | Boolean |         |   true   | Controls whether or not the header is displayed. |
+| `backgroundColor` | String  |         |  false   | Any valid CSS color.                             |
 
 ## bodyOptions
 
-|    Property     |  Type  | Default | Required | Description          |
-| :-------------: | :----: | :-----: | :------: | :------------------- |
-| backgroundColor | String |         |  false   | Any valid CSS color. |
-|   borderColor   | String |         |  false   | Any valid CSS color. |
+|     Property      |  Type  | Default | Required | Description          |
+| :---------------: | :----: | :-----: | :------: | :------------------- |
+| `backgroundColor` | String |         |  false   | Any valid CSS color. |
 
 ## footerOptions
 
-|    Property     |  Type   | Default | Required | Description                                      |
-| :-------------: | :-----: | :-----: | :------: | :----------------------------------------------- |
-|    isVisible    | Boolean |         |   true   | Controls whether or not the footer is displayed. |
-| backgroundColor | String  |         |  false   | Any valid CSS color.                             |
+|     Property      |  Type   | Default | Required | Description                                      |
+| :---------------: | :-----: | :-----: | :------: | :----------------------------------------------- |
+|    `isVisible`    | Boolean |         |   true   | Controls whether or not the footer is displayed. |
+| `backgroundColor` | String  |         |  false   | Any valid CSS color.                             |
+
+# Slots
+
+Scoped slots are exposed for each sub-section of the card: header, body, and footer. Each slot has slot props which give access to the individual item from the list that was passed in through the `elements` property, so you can use that data to fully customize the card.
+
+|   Name    |                             Description                              | Scope        |
+| :-------: | :------------------------------------------------------------------: | :----------- |
+| `header`  | Individual item from the list passed in through the `elements` prop. | `headerProp` |
+| `default` | Individual item from the list passed in through the `elements` prop. | `bodyProp`   |
+| `footer`  | Individual item from the list passed in through the `elements` prop. | `footerProp` |
+
+In the above example, we have named the object containing all our slot props slotProps, but you can choose to call this anything. More info can be found here: https://vuejs.org/v2/guide/components-slots.html#Scoped-Slots
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)

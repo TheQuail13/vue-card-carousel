@@ -70,8 +70,7 @@ export default {
         backgroundColor: null
       },
       intBodyOptions: {
-        backgroundColor: null,
-        borderColor: null
+        backgroundColor: null
       },
       intFooterOptions: {
         isVisible: true,
