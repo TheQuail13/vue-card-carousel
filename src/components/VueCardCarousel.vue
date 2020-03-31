@@ -169,6 +169,7 @@ export default {
   overflow-x: scroll;
   width: 100%;
   height: 100%;
+  touch-action: none;
 }
 
 .c-backdrop::-webkit-scrollbar {

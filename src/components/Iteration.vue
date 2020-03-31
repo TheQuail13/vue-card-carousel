@@ -125,11 +125,14 @@ export default {
       if (typeof percFromParent === "number") {
         return {
           height: `${Math.max(1.0 - percFromParent * 0.35, 0.4) * 100}vh`,
-          opacity: `${Math.max(1.45 - percFromParent, 0.2)}`
+          opacity: Math.max(1.45 - percFromParent, 0.2)
         };
       }
 
-      return null;
+      return {
+        height: "100vh",
+        opacity: 1
+      };
     },
     headerStyle() {
       if (this.headerOptions) {
