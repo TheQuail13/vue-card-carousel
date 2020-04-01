@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: https://vuepress.vuejs.org/hero.png
-actionText: Start →
+actionText: Start
 actionLink: /guide/
 features:
   - title: Simplicity First
@@ -13,7 +13,5 @@ features:
   - title: Performant
 
     details: VuePress generates pre-rendered static HTML for each page, and runs as an SPA once a page is loaded.
-footer: Copyright © 2019 - Peter Mbanugo
+footer: Copyright © 2020 - TheQuail13
 ---
-
-### As Easy as 1, 2, 3

@@ -1,5 +1,5 @@
 <template>
-  <div class="c-backdrop">
+  <div class="c-backdrop" :style="backdropStyle">
     <Iteration
       v-for="(element, elemIdx) in listToIterate"
       :iterant="element"
@@ -41,6 +41,11 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    hideBackdrop: {
+      type: Boolean,
+      required: false,
+      default: false
     },
     headerOptions: {
       type: Object,
@@ -136,6 +141,14 @@ export default {
     }
   },
 
+  computed: {
+    backdropStyle() {
+      return !this.hideBackdrop
+        ? { "background-color": `rgba(0, 0, 0, 0.3)` }
+        : null;
+    }
+  },
+
   mounted() {
     window.addEventListener("resize", this.setParentCoords, false);
     this.setParentCoords();
@@ -164,7 +177,6 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   overflow-x: scroll;
   width: 100%;

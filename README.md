@@ -115,12 +115,13 @@ export default {
 
 # Props
 
-|    Property     |  Type  | Default | Required | Description                                             |
-| :-------------: | :----: | :-----: | :------: | :------------------------------------------------------ |
-|   `elements`    | Array  |         |   true   | List of items to used to generate the scrollable cards. |
-| `headerOptions` | Object |         |  false   | See details below for available properties.             |
-|  `bodyOptions`  | Object |         |  false   | See details below for available properties.             |
-| `footerOptions` | Object |         |  false   | See details below for available properties.             |
+|    Property     |  Type   | Default | Required | Description                                             |
+| :-------------: | :-----: | :-----: | :------: | :------------------------------------------------------ |
+|   `elements`    |  Array  |         |   true   | List of items to used to generate the scrollable cards. |
+| `hideBackdrop`  | Boolean |  false  |   true   | Shows/hides the backdrop. Akin to a modal backdrop.     |
+| `headerOptions` | Object  |         |  false   | See details below for available properties.             |
+|  `bodyOptions`  | Object  |         |  false   | See details below for available properties.             |
+| `footerOptions` | Object  |         |  false   | See details below for available properties.             |
 
 ## headerOptions
 
