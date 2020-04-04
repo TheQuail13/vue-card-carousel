@@ -50,7 +50,7 @@ Most basic usage would be adding the component and passing in the array of items
 ```
 <template>
   <div id="app">
-    <VueCardCarousel :elements="listOfTodos"></VueCardCarousel>
+    <VueCardCarousel :items="listOfTodos"></VueCardCarousel>
   </div>
 </template>
 
@@ -76,7 +76,7 @@ However this will be relatively uninteresting. To make the most use of this comp
 <template>
   <div id="app">
     <VueCardCarousel
-      :elements="listOfTodos"
+      :items="listOfTodos"
       :header-options="headerOpt"
       :footer-options="footerOpt"
     >
@@ -117,7 +117,7 @@ export default {
 
 |    Property     |  Type   | Default | Required | Description                                             |
 | :-------------: | :-----: | :-----: | :------: | :------------------------------------------------------ |
-|   `elements`    |  Array  |         |   true   | List of items to used to generate the scrollable cards. |
+|     `items`     |  Array  |         |   true   | List of items to used to generate the scrollable cards. |
 | `hideBackdrop`  | Boolean |  false  |   true   | Shows/hides the backdrop. Akin to a modal backdrop.     |
 | `headerOptions` | Object  |         |  false   | See details below for available properties.             |
 |  `bodyOptions`  | Object  |         |  false   | See details below for available properties.             |
@@ -145,13 +145,13 @@ export default {
 
 # Slots
 
-Scoped slots are exposed for each sub-section of the card: header, body, and footer. Each slot has slot props which give access to the individual item from the list that was passed in through the `elements` property, so you can use that data to fully customize the card.
+Scoped slots are exposed for each sub-section of the card: header, body, and footer. Each slot has slot props which give access to the individual item from the list that was passed in through the `items` property, so you can use that data to fully customize the card.
 
-|   Name    |                             Description                              | Scope        |
-| :-------: | :------------------------------------------------------------------: | :----------- |
-| `header`  | Individual item from the list passed in through the `elements` prop. | `headerProp` |
-| `default` | Individual item from the list passed in through the `elements` prop. | `bodyProp`   |
-| `footer`  | Individual item from the list passed in through the `elements` prop. | `footerProp` |
+|   Name    |                            Description                            | Scope        |
+| :-------: | :---------------------------------------------------------------: | :----------- |
+| `header`  | Individual item from the list passed in through the `items` prop. | `headerProp` |
+| `default` | Individual item from the list passed in through the `items` prop. | `bodyProp`   |
+| `footer`  | Individual item from the list passed in through the `items` prop. | `footerProp` |
 
 In the above example, we have named the object containing all our slot props slotProps, but you can choose to call this anything. More info can be found here: https://vuejs.org/v2/guide/components-slots.html#Scoped-Slots
 

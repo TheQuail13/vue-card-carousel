@@ -37,7 +37,7 @@ export default {
   },
 
   props: {
-    elements: {
+    items: {
       type: Array,
       required: true,
       default: () => []
@@ -121,6 +121,7 @@ export default {
           behavior: "smooth"
         };
         this.$el.scrollBy(opt);
+        console.log(this.elClosestToMiddle.cMainId, this.listToDisplay.length);
       }
     },
     handleScroll(isScrolling) {
@@ -146,6 +147,15 @@ export default {
       return !this.hideBackdrop
         ? { "background-color": `rgba(0, 0, 0, 0.3)` }
         : null;
+    },
+    listToDisplay() {
+      if (this.listToIterate.length > 0) {
+        return this.listToIterate.filter(
+          itm => Math.abs(itm.cMainId - this.elClosestToMiddle.cMainId) < 3
+        );
+      }
+
+      return [];
     }
   },
 
@@ -160,7 +170,7 @@ export default {
 
   created() {
     this.setLayoutProps();
-    this.listToIterate = this.elements.map((row, index) => ({
+    this.listToIterate = this.items.map((row, index) => ({
       ...row,
       cMainId: index,
       distFromParentCenter: 0,
