@@ -43,6 +43,11 @@ export default {
       required: true,
       default: () => [],
     },
+    startIndex: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
     hideBackdrop: {
       type: Boolean,
       required: false,
@@ -117,7 +122,7 @@ export default {
       this.fullWidth = window.screen.width;
       this.quarterWidth = window.screen.width * 0.25;
     },
-    handleTouch(bool, leftStart) {
+    handleTouch(bool) {
       this.isTouch = !this.isTouch;
       // if touch is released, snap to middle
       if (!bool) {
@@ -146,6 +151,15 @@ export default {
       }
       return {};
     },
+    initScroll() {
+      if (typeof this.listToIterate[this.startIndex] !== "undefined") {
+        const diff =
+          this.listToIterate[~~this.startIndex].distFromParentCenter -
+          this.midpoint;
+        this.$el.scrollBy(diff, 0);
+        this.handleScroll(true);
+      }
+    },
   },
 
   computed: {
@@ -159,6 +173,7 @@ export default {
   mounted() {
     window.addEventListener("resize", this.setParentCoords, false);
     this.setParentCoords();
+    this.initScroll();
   },
 
   destroyed() {

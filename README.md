@@ -118,6 +118,7 @@ export default {
 |     Property      |  Type   | Default | Required | Description                                                               |
 | :---------------: | :-----: | :-----: | :------: | :------------------------------------------------------------------------ |
 |      `items`      |  Array  |         |   true   | List of items to used to generate the scrollable cards.                   |
+|   `startIndex`    | Number  |    0    |  false   | Index of the card you want to be centered on first.                       |
 |  `hideBackdrop`   | Boolean |  false  |   true   | Shows/hides the backdrop. Akin to a modal backdrop.                       |
 | `sideCardOpacity` | Number  |   0.3   |  false   | Sets the minimum opacity for the cards on either side of the center card. |
 |  `headerOptions`  | Object  |         |  false   | See details below for available properties.                               |
