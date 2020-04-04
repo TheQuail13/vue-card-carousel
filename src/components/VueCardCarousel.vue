@@ -1,12 +1,13 @@
 <template>
   <div class="c-backdrop" :style="backdropStyle">
     <Iteration
-      v-for="(element, elemIdx) in listToIterate"
+      v-for="element in listToIterate"
       :iterant="element"
-      :key="elemIdx"
+      :key="element.cMainId"
       :parent-mid-point="midpoint"
       :is-touch="isTouch"
       :is-scrolling="isScrolling"
+      :side-card-opacity="sideCardOpacity"
       :header-options="intHeaderOptions"
       :body-options="intBodyOptions"
       :footer-options="intFooterOptions"
@@ -33,32 +34,37 @@ export default {
   name: "VueCardCarousel",
 
   components: {
-    Iteration
+    Iteration,
   },
 
   props: {
     items: {
       type: Array,
       required: true,
-      default: () => []
+      default: () => [],
     },
     hideBackdrop: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
+    },
+    sideCardOpacity: {
+      type: Number,
+      required: false,
+      default: 0.3,
     },
     headerOptions: {
       type: Object,
-      required: false
+      required: false,
     },
     bodyOptions: {
       type: Object,
-      required: false
+      required: false,
     },
     footerOptions: {
       type: Object,
-      required: false
-    }
+      required: false,
+    },
   },
 
   data() {
@@ -72,15 +78,15 @@ export default {
       isScrolling: false,
       intHeaderOptions: {
         isVisible: true,
-        backgroundColor: null
+        backgroundColor: null,
       },
       intBodyOptions: {
-        backgroundColor: null
+        backgroundColor: null,
       },
       intFooterOptions: {
         isVisible: true,
-        backgroundColor: null
-      }
+        backgroundColor: null,
+      },
     };
   },
 
@@ -113,15 +119,15 @@ export default {
     },
     handleTouch(bool, leftStart) {
       this.isTouch = !this.isTouch;
+      // if touch is released, snap to middle
       if (!bool) {
         this.elClosestToMiddle = this.getClosestElToMiddle();
         const opt = {
           top: 0,
           left: this.elClosestToMiddle.distFromParentCenter,
-          behavior: "smooth"
+          behavior: "smooth",
         };
         this.$el.scrollBy(opt);
-        console.log(this.elClosestToMiddle.cMainId, this.listToDisplay.length);
       }
     },
     handleScroll(isScrolling) {
@@ -139,7 +145,7 @@ export default {
         );
       }
       return {};
-    }
+    },
   },
 
   computed: {
@@ -148,15 +154,6 @@ export default {
         ? { "background-color": `rgba(0, 0, 0, 0.3)` }
         : null;
     },
-    listToDisplay() {
-      if (this.listToIterate.length > 0) {
-        return this.listToIterate.filter(
-          itm => Math.abs(itm.cMainId - this.elClosestToMiddle.cMainId) < 3
-        );
-      }
-
-      return [];
-    }
   },
 
   mounted() {
@@ -174,9 +171,9 @@ export default {
       ...row,
       cMainId: index,
       distFromParentCenter: 0,
-      startLeftDist: 0
+      startLeftDist: 0,
     }));
-  }
+  },
 };
 </script>
 

@@ -27,35 +27,40 @@ export default {
   props: {
     iterant: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     parentMidPoint: {
       type: Number,
       required: true,
-      default: 0
+      default: 0,
     },
     isTouch: {
       type: Boolean,
       required: true,
-      default: false
+      default: false,
     },
     isScrolling: {
       type: Boolean,
       required: true,
-      default: false
+      default: false,
+    },
+    sideCardOpacity: {
+      type: Number,
+      required: false,
+      default: 0.3,
     },
     headerOptions: {
       type: Object,
-      required: true
+      required: true,
     },
     bodyOptions: {
       type: Object,
-      required: true
+      required: true,
     },
     footerOptions: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
@@ -66,7 +71,7 @@ export default {
       scrollingId: 0,
       stopId: 0,
       startTime: null,
-      duration: 1000
+      duration: 1000,
     };
   },
 
@@ -111,7 +116,7 @@ export default {
         this.touchStart();
         window.cancelAnimationFrame(this.stopId);
       }
-    }
+    },
   },
 
   computed: {
@@ -125,19 +130,19 @@ export default {
       if (typeof percFromParent === "number") {
         return {
           height: `${Math.max(1.0 - percFromParent * 0.35, 0.4) * 100}vh`,
-          opacity: Math.max(1.45 - percFromParent, 0.3)
+          opacity: Math.max(1.45 - percFromParent, this.sideCardOpacity),
         };
       }
 
       return {
         height: "100vh",
-        opacity: 1
+        opacity: 1,
       };
     },
     headerStyle() {
       if (this.headerOptions) {
         return {
-          "background-color": `${this.headerOptions.backgroundColor} !important`
+          "background-color": `${this.headerOptions.backgroundColor} !important`,
         };
       }
       return null;
@@ -145,7 +150,7 @@ export default {
     bodyStyle() {
       if (this.bodyOptions) {
         return {
-          "background-color": `${this.bodyOptions.backgroundColor} !important`
+          "background-color": `${this.bodyOptions.backgroundColor} !important`,
         };
       }
       return null;
@@ -153,11 +158,11 @@ export default {
     footerStyle() {
       if (this.footerOptions) {
         return {
-          "background-color": `${this.footerOptions.backgroundColor} !important`
+          "background-color": `${this.footerOptions.backgroundColor} !important`,
         };
       }
       return null;
-    }
+    },
   },
 
   mounted() {
@@ -180,8 +185,8 @@ export default {
       if (this.isScrolling) {
         this.scrollingId = window.requestAnimationFrame(this.isTouching);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
