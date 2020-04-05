@@ -97,7 +97,6 @@ export default {
       pageX: 0,
       pageLeft: 0,
       isMouseUp: false,
-      isMouseToRight: 0,
     };
   },
 
@@ -174,7 +173,6 @@ export default {
     onMouseDown(e) {
       e.preventDefault();
       this.isMouseUp = false;
-      this.isMouseToRight = e.clientX - this.midpoint > 0;
       this.pageX = e.pageX;
       this.pageLeft = this.$el.scrollLeft;
 
@@ -183,13 +181,9 @@ export default {
     },
     onMouseDragging(e) {
       e.preventDefault();
-      // if (this.isMouseToRight === e.clientX - this.midpoint > 0) {
       this.$el.scrollLeft = this.pageLeft - e.pageX + this.pageX;
       this.handleTouch(true);
       this.handleScroll(true);
-      // } else {
-      //   this.snapToMiddle();
-      // }
     },
     snapToMiddle() {
       this.isMouseUp = true;
