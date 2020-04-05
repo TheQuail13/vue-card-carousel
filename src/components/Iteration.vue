@@ -44,6 +44,11 @@ export default {
       required: true,
       default: false,
     },
+    isMouseUp: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     sideCardOpacity: {
       type: Number,
       required: false,
@@ -93,7 +98,7 @@ export default {
       }
     },
     endTouch() {
-      this.$emit("ontouch", false, this.iterant.startLeftDist);
+      this.$emit("ontouch", false);
       this.$emit("onscroll", false);
       this.startTime = performance.now();
       this.stopId = window.requestAnimationFrame(this.checkIsScrolling);
@@ -108,12 +113,11 @@ export default {
       const elLeft = this.$el.getBoundingClientRect().left;
       const newTimestamp = timestamp || new Date().getTime();
       const runtime = newTimestamp - this.startTime;
+      this.touchStart();
       if (this.lastScrollLeft !== elLeft || runtime < this.duration) {
         this.lastScrollLeft = elLeft;
-        this.touchStart();
         this.stopId = window.requestAnimationFrame(this.checkIsScrolling);
       } else {
-        this.touchStart();
         window.cancelAnimationFrame(this.stopId);
       }
     },
@@ -167,14 +171,14 @@ export default {
 
   mounted() {
     this.iterant.startLeftDist = this.$el.offsetLeft;
-    this.$el.addEventListener("touchstart", this.onTouchWrapper, false);
-    this.$el.addEventListener("touchend", this.endTouch, false);
+    this.$el.addEventListener("touchstart", this.onTouchWrapper);
+    this.$el.addEventListener("touchend", this.endTouch);
     this.getElCoords();
   },
 
   destroyed() {
-    this.$el.removeEventListener("touchstart", this.onTouchWrapper, false);
-    this.$el.removeEventListener("touchend", this.endTouch, false);
+    this.$el.removeEventListener("touchstart", this.onTouchWrapper);
+    this.$el.removeEventListener("touchend", this.endTouch);
   },
 
   watch: {
@@ -182,8 +186,13 @@ export default {
       this.getElCoords();
     },
     isScrolling() {
-      if (this.isScrolling) {
+      if (this.isScrolling && this.iterant.isVisible) {
         this.scrollingId = window.requestAnimationFrame(this.isTouching);
+      }
+    },
+    isMouseUp() {
+      if (this.isMouseUp && this.iterant.isVisible) {
+        this.endTouch();
       }
     },
   },

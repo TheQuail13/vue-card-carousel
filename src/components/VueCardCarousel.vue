@@ -7,6 +7,7 @@
       :parent-mid-point="midpoint"
       :is-touch="isTouch"
       :is-scrolling="isScrolling"
+      :is-mouse-up="isMouseUp"
       :side-card-opacity="sideCardOpacity"
       :header-options="intHeaderOptions"
       :body-options="intBodyOptions"
@@ -15,6 +16,7 @@
       @onscroll="handleScroll"
     >
       <template v-slot:header>
+        {{ visItems }}
         <slot :headerProp="element" name="header"></slot>
       </template>
       <template>
@@ -92,6 +94,10 @@ export default {
         isVisible: true,
         backgroundColor: null,
       },
+      pageX: 0,
+      pageLeft: 0,
+      isMouseUp: false,
+      isMouseToRight: 0,
     };
   },
 
@@ -122,6 +128,15 @@ export default {
       this.fullWidth = window.screen.width;
       this.quarterWidth = window.screen.width * 0.25;
     },
+    initScroll() {
+      if (typeof this.listToIterate[this.startIndex] !== "undefined") {
+        const diff =
+          this.listToIterate[~~this.startIndex].distFromParentCenter -
+          this.midpoint;
+        this.$el.scrollBy(diff, 0);
+        this.handleScroll(true);
+      }
+    },
     handleTouch(bool) {
       this.isTouch = !this.isTouch;
       // if touch is released, snap to middle
@@ -133,6 +148,10 @@ export default {
           behavior: "smooth",
         };
         this.$el.scrollBy(opt);
+        this.listToIterate.forEach((itm) => {
+          itm.isVisible =
+            Math.abs(this.elClosestToMiddle.cMainId - itm.cMainId) < 2;
+        });
       }
     },
     handleScroll(isScrolling) {
@@ -151,14 +170,31 @@ export default {
       }
       return {};
     },
-    initScroll() {
-      if (typeof this.listToIterate[this.startIndex] !== "undefined") {
-        const diff =
-          this.listToIterate[~~this.startIndex].distFromParentCenter -
-          this.midpoint;
-        this.$el.scrollBy(diff, 0);
-        this.handleScroll(true);
-      }
+
+    onMouseDown(e) {
+      e.preventDefault();
+      this.isMouseUp = false;
+      this.isMouseToRight = e.clientX - this.midpoint > 0;
+      this.pageX = e.pageX;
+      this.pageLeft = this.$el.scrollLeft;
+
+      this.$el.addEventListener("mousemove", this.onMouseDragging);
+      this.$el.addEventListener("mouseup", this.snapToMiddle);
+    },
+    onMouseDragging(e) {
+      e.preventDefault();
+      // if (this.isMouseToRight === e.clientX - this.midpoint > 0) {
+      this.$el.scrollLeft = this.pageLeft - e.pageX + this.pageX;
+      this.handleTouch(true);
+      this.handleScroll(true);
+      // } else {
+      //   this.snapToMiddle();
+      // }
+    },
+    snapToMiddle() {
+      this.isMouseUp = true;
+      this.$el.removeEventListener("mousemove", this.onMouseDragging);
+      this.$el.removeEventListener("mouseup", this.snapToMiddle);
     },
   },
 
@@ -168,16 +204,25 @@ export default {
         ? { "background-color": `rgba(0, 0, 0, 0.3)` }
         : null;
     },
+    visItems() {
+      if (this.listToIterate.length > 0) {
+        const t = this.listToIterate.filter((itm) => itm.isVisible);
+        return t.map((i) => i.cMainId);
+      }
+      return [];
+    },
   },
 
   mounted() {
-    window.addEventListener("resize", this.setParentCoords, false);
+    window.addEventListener("resize", this.setParentCoords);
+    this.$el.addEventListener("mousedown", this.onMouseDown);
     this.setParentCoords();
     this.initScroll();
   },
 
   destroyed() {
-    window.removeEventListener("resize", this.setParentCoords, false);
+    window.removeEventListener("resize", this.setParentCoords);
+    this.$el.removeEventListener("mousedown", this.onMouseDown);
   },
 
   created() {
@@ -187,6 +232,7 @@ export default {
       cMainId: index,
       distFromParentCenter: 0,
       startLeftDist: 0,
+      isVisible: index < 2,
     }));
   },
 };
