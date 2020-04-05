@@ -50,7 +50,7 @@ Most basic usage would be adding the component and passing in the array of items
 ```
 <template>
   <div id="app">
-    <VueCardCarousel :items="listOfTodos"></VueCardCarousel>
+    <VueCardCarousel :items="listOfTodos" />
   </div>
 </template>
 
@@ -80,17 +80,17 @@ However this will be relatively uninteresting. To make the most use of this comp
       :header-options="headerOpt"
       :footer-options="footerOpt"
     >
-      <template v-slot:header="slotProps"
-        ><strong>Header. Id: {{ slotProps.headerProp.id }}</strong></template
-      >
+      <template v-slot:header="slotProps">
+        <strong>Header. Id: {{ slotProps.headerProp.id }}</strong>
+      </template>
       <template v-slot:default="slotProps">
         <div v-for="n in 5" :key="n">
-          {{ slotProps.bodyProp.cMainId }}. Hello from the Parent
+          {{ slotProps.bodyProp.cMainId }}. Hello from the Parent.
         </div>
       </template>
-      <template v-slot:footer="slotProps"
-        ><strong>Footer. Id: {{ slotProps.footerProp.id }}</strong></template
-      >
+      <template v-slot:footer="slotProps">
+        <strong>Footer. Id: {{ slotProps.footerProp.id }}</strong>
+      </template>
     </VueCardCarousel>
   </div>
 </template>
