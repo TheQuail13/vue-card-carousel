@@ -16,7 +16,6 @@
       @onscroll="handleScroll"
     >
       <template v-slot:header>
-        {{ visItems }}
         <slot :headerProp="element" name="header"></slot>
       </template>
       <template>
@@ -83,17 +82,6 @@ export default {
       quarterWidth: 0,
       elClosestToMiddle: { cMainId: 0 },
       isScrolling: false,
-      intHeaderOptions: {
-        isVisible: true,
-        backgroundColor: null,
-      },
-      intBodyOptions: {
-        backgroundColor: null,
-      },
-      intFooterOptions: {
-        isVisible: true,
-        backgroundColor: null,
-      },
       pageX: 0,
       pageLeft: 0,
       isMouseUp: false,
@@ -101,26 +89,6 @@ export default {
   },
 
   methods: {
-    setLayoutProps() {
-      if (this.headerOptions) {
-        this.intHeaderOptions = Object.assign(
-          this.intHeaderOptions,
-          this.headerOptions
-        );
-      }
-      if (this.bodyOptions) {
-        this.intBodyOptions = Object.assign(
-          this.intBodyOptions,
-          this.bodyOptions
-        );
-      }
-      if (this.footerOptions) {
-        this.intFooterOptions = Object.assign(
-          this.intFooterOptions,
-          this.footerOptions
-        );
-      }
-    },
     setParentCoords() {
       const rect = this.$el.getBoundingClientRect();
       this.midpoint = rect.width / 2 + rect.left;
@@ -198,12 +166,34 @@ export default {
         ? { "background-color": `rgba(0, 0, 0, 0.3)` }
         : null;
     },
-    visItems() {
-      if (this.listToIterate.length > 0) {
-        const t = this.listToIterate.filter((itm) => itm.isVisible);
-        return t.map((i) => i.cMainId);
+    intHeaderOptions() {
+      const opt = {
+        isVisible: true,
+        backgroundColor: null,
+      };
+      if (this.headerOptions) {
+        return Object.assign(opt, this.headerOptions);
       }
-      return [];
+      return opt;
+    },
+    intBodyOptions() {
+      const opt = {
+        backgroundColor: null,
+      };
+      if (this.bodyOptions) {
+        return Object.assign(opt, this.bodyOptions);
+      }
+      return opt;
+    },
+    intFooterOptions() {
+      const opt = {
+        isVisible: true,
+        backgroundColor: null,
+      };
+      if (this.footerOptions) {
+        return Object.assign(opt, this.footerOptions);
+      }
+      return opt;
     },
   },
 
@@ -220,7 +210,6 @@ export default {
   },
 
   created() {
-    this.setLayoutProps();
     this.listToIterate = this.items.map((row, index) => ({
       ...row,
       cMainId: index,
@@ -234,11 +223,6 @@ export default {
 
 <style scoped lang="scss">
 .c-backdrop {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   display: flex;
   overflow-x: scroll;
   width: 100%;

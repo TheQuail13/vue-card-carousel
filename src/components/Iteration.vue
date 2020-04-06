@@ -52,7 +52,7 @@ export default {
     sideCardOpacity: {
       type: Number,
       required: false,
-      default: 0.3,
+      default: 0.25,
     },
     headerOptions: {
       type: Object,
@@ -133,13 +133,13 @@ export default {
 
       if (typeof percFromParent === "number") {
         return {
-          height: `${Math.max(1.0 - percFromParent * 0.35, 0.4) * 100}vh`,
-          opacity: Math.max(1.45 - percFromParent, this.sideCardOpacity),
+          height: `${Math.max(0.8 - percFromParent * 0.35, 0.4) * 100}%`,
+          opacity: Math.max(1 - percFromParent, this.sideCardOpacity),
         };
       }
 
       return {
-        height: "100vh",
+        height: "100%",
         opacity: 1,
       };
     },
@@ -206,7 +206,7 @@ export default {
   display: flex;
   flex-direction: column;
   box-shadow: 2px 2px 15px 1px;
-  min-width: 75vw;
+  min-width: 75%;
   margin: auto 0.85em auto 0.85em;
   border-radius: 1.15em;
   top: 0;
