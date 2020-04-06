@@ -133,7 +133,7 @@ export default {
 
       if (typeof percFromParent === "number") {
         return {
-          height: `${Math.max(0.8 - percFromParent * 0.35, 0.4) * 100}%`,
+          height: `${Math.max(1 - percFromParent * 0.6, 0.4) * 100}%`,
           opacity: Math.max(1 - percFromParent, this.sideCardOpacity),
         };
       }
@@ -208,21 +208,21 @@ export default {
   box-shadow: 2px 2px 15px 1px;
   min-width: 75%;
   margin: auto 0.85em auto 0.85em;
-  border-radius: 1.15em;
+  border-radius: 1em;
   top: 0;
-  max-height: 80%;
+  max-height: 83%;
   transition: height;
 }
 
 .c-main-header {
-  border-radius: 1.15em 1.15em 0 0;
-  padding: 1.5em;
+  border-radius: 1em 1em 0 0;
+  padding: 1em;
 }
 
 .c-main-body {
   overflow-y: scroll;
   height: 100%;
-  margin: 0.75em;
+  margin: 0.5em;
 }
 
 .c-main-body::-webkit-scrollbar {
@@ -234,7 +234,7 @@ export default {
 }
 
 .c-main-footer {
-  border-radius: 0 0 1.15em 1.15em;
-  padding: 1.5em;
+  border-radius: 0 0 1em 1em;
+  padding: 1em;
 }
 </style>
