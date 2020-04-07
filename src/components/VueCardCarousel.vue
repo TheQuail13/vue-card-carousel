@@ -173,7 +173,7 @@ export default {
       this.$el.removeEventListener("mouseup", this.snapToMiddle);
     },
     isMouseBetweenBoundaries(mouseX) {
-      if (mouseX < this.right * 0.99 && mouseX > this.left) {
+      if (mouseX < this.right * 0.98 && mouseX > this.left * 1.02) {
         return true;
       }
       return false;
