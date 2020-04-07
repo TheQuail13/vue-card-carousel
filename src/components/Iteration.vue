@@ -49,6 +49,11 @@ export default {
       required: true,
       default: false,
     },
+    isInitScroll: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     sideCardOpacity: {
       type: Number,
       required: false,
@@ -94,6 +99,7 @@ export default {
       if (this.isScrolling) {
         this.scrollingId = window.requestAnimationFrame(this.isTouching);
       } else {
+        this.$emit("initscrollcomplete");
         window.cancelAnimationFrame(this.scrollingId);
       }
     },
@@ -186,7 +192,7 @@ export default {
       this.getElCoords();
     },
     isScrolling() {
-      if (this.isScrolling && this.iterant.isVisible) {
+      if (this.isScrolling && (this.iterant.isVisible || this.isInitScroll)) {
         this.scrollingId = window.requestAnimationFrame(this.isTouching);
       }
     },

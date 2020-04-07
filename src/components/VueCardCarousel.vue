@@ -8,12 +8,14 @@
       :is-touch="isTouch"
       :is-scrolling="isScrolling"
       :is-mouse-up="isMouseUp"
+      :is-init-scroll="isInitScroll"
       :side-card-opacity="sideCardOpacity"
       :header-options="intHeaderOptions"
       :body-options="intBodyOptions"
       :footer-options="intFooterOptions"
       @ontouch="handleTouch"
       @onscroll="handleScroll"
+      @initscrollcomplete="updateInitScroll"
     >
       <template v-slot:header>
         <slot :headerProp="element" name="header"></slot>
@@ -82,6 +84,7 @@ export default {
       quarterWidth: 0,
       elClosestToMiddle: { cMainId: 0 },
       isScrolling: false,
+      isInitScroll: false,
       pageX: 0,
       pageLeft: 0,
       isMouseUp: false,
@@ -97,12 +100,16 @@ export default {
     },
     initScroll() {
       if (typeof this.listToIterate[this.startIndex] !== "undefined") {
+        this.isInitScroll = this.startIndex > 0;
         const diff =
           this.listToIterate[~~this.startIndex].distFromParentCenter -
           this.midpoint;
         this.$el.scrollBy(diff, 0);
         this.handleScroll(true);
       }
+    },
+    updateInitScroll() {
+      this.isInitScroll = false;
     },
     handleTouch(bool) {
       this.isTouch = !this.isTouch;
@@ -137,7 +144,6 @@ export default {
       }
       return {};
     },
-
     onMouseDown(e) {
       e.preventDefault();
       this.isMouseUp = false;
