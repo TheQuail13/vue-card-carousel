@@ -78,6 +78,8 @@ export default {
   data() {
     return {
       listToIterate: [],
+      left: 0,
+      right: 0,
       midpoint: 0,
       isTouch: false,
       fullWidth: 0,
@@ -94,6 +96,8 @@ export default {
   methods: {
     setParentCoords() {
       const rect = this.$el.getBoundingClientRect();
+      this.left = rect.left;
+      this.right = rect.right;
       this.midpoint = rect.width / 2 + rect.left;
       this.fullWidth = window.screen.width;
       this.quarterWidth = window.screen.width * 0.25;
@@ -155,14 +159,24 @@ export default {
     },
     onMouseDragging(e) {
       e.preventDefault();
-      this.$el.scrollLeft = this.pageLeft - e.pageX + this.pageX;
-      this.handleTouch(true);
-      this.handleScroll(true);
+      if (!this.isMouseBetweenBoundaries(e.clientX)) {
+        this.snapToMiddle();
+      } else {
+        this.$el.scrollLeft = this.pageLeft - e.pageX + this.pageX;
+        this.handleTouch(true);
+        this.handleScroll(true);
+      }
     },
     snapToMiddle() {
       this.isMouseUp = true;
       this.$el.removeEventListener("mousemove", this.onMouseDragging);
       this.$el.removeEventListener("mouseup", this.snapToMiddle);
+    },
+    isMouseBetweenBoundaries(mouseX) {
+      if (mouseX < this.right * 0.99 && mouseX > this.left) {
+        return true;
+      }
+      return false;
     },
   },
 
