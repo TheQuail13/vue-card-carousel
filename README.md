@@ -2,7 +2,6 @@
 
 <p align="center">
   <img src="https://img.shields.io/npm/v/vue-card-carousel.svg">
-  <img src="https://img.shields.io/github/issues/TheQuail13/vue-card-carousel.svg">
   <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/minzip/vue-glide-js.svg">
 </p>
 
