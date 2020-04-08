@@ -44,12 +44,12 @@ export default {
 
 # Usage
 
-Most basic usage would be adding the component and passing in the array of items you want displayed:
+Most basic usage would be adding the component and passing in the array of items you want displayed. **Note you will need to set at minimum the height of the component, otherwise it won't display. The width will take up 100% by default. These can be easily configured via CSS.**
 
 ```
 <template>
   <div id="app">
-    <VueCardCarousel :items="listOfTodos" />
+    <VueCardCarousel class="vcc" :items="listOfTodos" />
   </div>
 </template>
 
@@ -67,6 +67,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .vcc {
+    height: 50vh;
+    width: 60vw;
+  }
+</style>
 ```
 
 However this will be relatively uninteresting. To make the most use of this component, you'll want to add customizations via props and slots like below:
@@ -75,6 +82,7 @@ However this will be relatively uninteresting. To make the most use of this comp
 <template>
   <div id="app">
     <VueCardCarousel
+      class="vcc"
       :items="listOfTodos"
       :header-options="headerOpt"
       :footer-options="footerOpt"
@@ -110,6 +118,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .vcc {
+    height: 50vh;
+    width: 60vw;
+  }
+</style>
 ```
 
 # Props
