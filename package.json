@@ -1,6 +1,6 @@
 {
   "name": "vue-card-carousel",
-  "version": "0.1.2",
+  "version": "0.2.1",
   "main": "./dist/vue-card-carousel.common.js",
   "license": "MIT",
   "private": false,
