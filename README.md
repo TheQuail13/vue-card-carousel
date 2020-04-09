@@ -136,7 +136,6 @@ export default {
 |  `hideBackdrop`   | Boolean |  false  |   true   | Shows/hides the backdrop. Akin to a modal backdrop.                                   |
 | `sideCardOpacity` | Number  |  0.25   |  false   | Sets the minimum opacity for the cards on either side of the center card.             |
 |  `headerOptions`  | Object  |         |  false   | See details below for available properties.                                           |
-|   `bodyOptions`   | Object  |         |  false   | See details below for available properties.                                           |
 |  `footerOptions`  | Object  |         |  false   | See details below for available properties.                                           |
 
 ## headerOptions
@@ -145,12 +144,6 @@ export default {
 | :---------------: | :-----: | :-----: | :------: | :----------------------------------------------- |
 |    `isVisible`    | Boolean |         |   true   | Controls whether or not the header is displayed. |
 | `backgroundColor` | String  |         |  false   | Any valid CSS color.                             |
-
-## bodyOptions
-
-|     Property      |  Type  | Default | Required | Description          |
-| :---------------: | :----: | :-----: | :------: | :------------------- |
-| `backgroundColor` | String |         |  false   | Any valid CSS color. |
 
 ## footerOptions
 
