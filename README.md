@@ -44,7 +44,7 @@ export default {
 
 # Usage
 
-Most basic usage would be adding the component and passing in the array of items you want displayed. **Note you will need to set at minimum the height of the component, otherwise it won't display. The width will take up 100% by default. These can be easily configured via CSS.**
+Most basic usage would be adding the component and passing in the array of items you want displayed. **Note you will need to set the minimum height of the component, otherwise it won't display. The width will take up 100% by default. These can be easily configured via CSS.**
 
 ```
 <template>
