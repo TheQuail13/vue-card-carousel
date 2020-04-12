@@ -7,7 +7,7 @@
     >
       <slot name="header"></slot>
     </div>
-    <div class="c-main-body"></div>
+    <div class="c-main-body">
       <slot></slot>
     </div>
     <div
