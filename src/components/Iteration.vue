@@ -7,7 +7,7 @@
     >
       <slot name="header"></slot>
     </div>
-    <div :style="bodyStyle" class="c-main-body">
+    <div class="c-main-body">
       <slot></slot>
     </div>
     <div
@@ -27,50 +27,46 @@ export default {
   props: {
     iterant: {
       type: Object,
-      default: () => {},
+      default: () => {}
     },
     parentMidPoint: {
       type: Number,
       required: true,
-      default: 0,
+      default: 0
     },
     isTouch: {
       type: Boolean,
       required: true,
-      default: false,
+      default: false
     },
     isScrolling: {
       type: Boolean,
       required: true,
-      default: false,
+      default: false
     },
     isMouseUp: {
       type: Boolean,
       required: true,
-      default: false,
+      default: false
     },
     isInitScroll: {
       type: Boolean,
       required: true,
-      default: false,
+      default: false
     },
     sideCardOpacity: {
       type: Number,
       required: false,
-      default: 0.25,
+      default: 0.25
     },
     headerOptions: {
       type: Object,
-      required: true,
-    },
-    bodyOptions: {
-      type: Object,
-      required: true,
+      required: true
     },
     footerOptions: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
 
   data() {
@@ -81,7 +77,7 @@ export default {
       scrollingId: 0,
       stopId: 0,
       startTime: null,
-      duration: 1000,
+      duration: 1000
     };
   },
 
@@ -126,7 +122,7 @@ export default {
       } else {
         window.cancelAnimationFrame(this.stopId);
       }
-    },
+    }
   },
 
   computed: {
@@ -140,27 +136,19 @@ export default {
       if (typeof percFromParent === "number") {
         return {
           height: `${Math.max(1 - percFromParent * 0.6, 0.4) * 100}%`,
-          opacity: Math.max(1 - percFromParent, this.sideCardOpacity),
+          opacity: Math.max(1 - percFromParent, this.sideCardOpacity)
         };
       }
 
       return {
         height: "100%",
-        opacity: 1,
+        opacity: 1
       };
     },
     headerStyle() {
       if (this.headerOptions) {
         return {
-          "background-color": `${this.headerOptions.backgroundColor} !important`,
-        };
-      }
-      return null;
-    },
-    bodyStyle() {
-      if (this.bodyOptions) {
-        return {
-          "background-color": `${this.bodyOptions.backgroundColor} !important`,
+          "background-color": `${this.headerOptions.backgroundColor} !important`
         };
       }
       return null;
@@ -168,11 +156,11 @@ export default {
     footerStyle() {
       if (this.footerOptions) {
         return {
-          "background-color": `${this.footerOptions.backgroundColor} !important`,
+          "background-color": `${this.footerOptions.backgroundColor} !important`
         };
       }
       return null;
-    },
+    }
   },
 
   mounted() {
@@ -200,8 +188,8 @@ export default {
       if (this.isMouseUp && this.iterant.isVisible) {
         this.endTouch();
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

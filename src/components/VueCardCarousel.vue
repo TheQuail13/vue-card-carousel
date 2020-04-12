@@ -11,7 +11,6 @@
       :is-init-scroll="isInitScroll"
       :side-card-opacity="sideCardOpacity"
       :header-options="intHeaderOptions"
-      :body-options="intBodyOptions"
       :footer-options="intFooterOptions"
       @ontouch="handleTouch"
       @onscroll="handleScroll"
@@ -37,42 +36,42 @@ export default {
   name: "VueCardCarousel",
 
   components: {
-    Iteration,
+    Iteration
   },
 
   props: {
     items: {
       type: Array,
       required: true,
-      default: () => [],
+      default: () => []
     },
     startIndex: {
       type: Number,
       required: false,
-      default: 0,
+      default: 0
     },
     hideBackdrop: {
       type: Boolean,
       required: false,
-      default: false,
+      default: false
     },
     sideCardOpacity: {
       type: Number,
       required: false,
-      default: 0.3,
+      default: 0.3
     },
     headerOptions: {
       type: Object,
-      required: false,
+      required: false
     },
     bodyOptions: {
       type: Object,
-      required: false,
+      required: false
     },
     footerOptions: {
       type: Object,
-      required: false,
-    },
+      required: false
+    }
   },
 
   data() {
@@ -89,7 +88,7 @@ export default {
       isInitScroll: false,
       pageX: 0,
       pageLeft: 0,
-      isMouseUp: false,
+      isMouseUp: false
     };
   },
 
@@ -123,10 +122,10 @@ export default {
         const opt = {
           top: 0,
           left: this.elClosestToMiddle.distFromParentCenter,
-          behavior: "smooth",
+          behavior: "smooth"
         };
         this.$el.scrollBy(opt);
-        this.listToIterate.forEach((itm) => {
+        this.listToIterate.forEach(itm => {
           itm.isVisible =
             Math.abs(this.elClosestToMiddle.cMainId - itm.cMainId) < 2;
         });
@@ -177,7 +176,7 @@ export default {
         return true;
       }
       return false;
-    },
+    }
   },
 
   computed: {
@@ -189,7 +188,7 @@ export default {
     intHeaderOptions() {
       const opt = {
         isVisible: true,
-        backgroundColor: null,
+        backgroundColor: null
       };
       if (this.headerOptions) {
         return Object.assign(opt, this.headerOptions);
@@ -198,7 +197,7 @@ export default {
     },
     intBodyOptions() {
       const opt = {
-        backgroundColor: null,
+        backgroundColor: null
       };
       if (this.bodyOptions) {
         return Object.assign(opt, this.bodyOptions);
@@ -208,13 +207,13 @@ export default {
     intFooterOptions() {
       const opt = {
         isVisible: true,
-        backgroundColor: null,
+        backgroundColor: null
       };
       if (this.footerOptions) {
         return Object.assign(opt, this.footerOptions);
       }
       return opt;
-    },
+    }
   },
 
   mounted() {
@@ -235,9 +234,9 @@ export default {
       cMainId: index,
       distFromParentCenter: 0,
       startLeftDist: 0,
-      isVisible: index < 2,
+      isVisible: index < 2
     }));
-  },
+  }
 };
 </script>
 
