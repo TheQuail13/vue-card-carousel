@@ -107,6 +107,11 @@ export default {
     },
     getElCoords() {
       const rect = this.$el.getBoundingClientRect();
+      if (this.iterant.cMainId === 0) {
+        console.log(rect);
+        console.log(this);
+      }
+
       this.left = rect.left;
       this.elMidpoint = rect.width / 2 + rect.left;
       this.iterant.distFromParentCenter = this.elMidpoint - this.parentMidPoint;

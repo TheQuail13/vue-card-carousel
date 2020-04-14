@@ -109,6 +109,7 @@ export default {
           this.midpoint;
         this.$el.scrollBy(diff, 0);
         this.handleScroll(true);
+        setTimeout(() => this.handleScroll(false), 2000);
       }
     },
     updateInitScroll() {
@@ -226,6 +227,7 @@ export default {
   destroyed() {
     window.removeEventListener("resize", this.setParentCoords);
     this.$el.removeEventListener("mousedown", this.onMouseDown);
+    this.$el.removeEventListener("mousemove", this.onMouseDragging);
   },
 
   created() {
