@@ -109,7 +109,9 @@ export default {
           this.midpoint;
         this.$el.scrollBy(diff, 0);
         this.handleScroll(true);
-        setTimeout(() => this.handleScroll(false), 2000);
+        if (this.isScrolling) {
+          setTimeout(() => this.handleScroll(false), 1000);
+        }
       }
     },
     updateInitScroll() {
