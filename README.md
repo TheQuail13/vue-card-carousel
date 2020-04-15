@@ -164,6 +164,10 @@ Scoped slots are exposed for each sub-section of the card: header, body, and foo
 
 In the above example, we have named the object containing all our slot props slotProps, but you can choose to call this anything. More info can be found here: https://vuejs.org/v2/guide/components-slots.html#Scoped-Slots
 
+# Demo
+
+Interactive demo located [here](https://thequail13.github.io/vue-card-carousel/) along with the [source code](https://github.com/TheQuail13/vue-card-carousel-demo).
+
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
