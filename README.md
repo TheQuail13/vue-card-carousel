@@ -5,8 +5,6 @@
   <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/minzip/vue-card-carousel.svg">
 </p>
 
-_Please note this is in active development and subject to change until it is out of alpha versions._
-
 # Installation
 
 ```
